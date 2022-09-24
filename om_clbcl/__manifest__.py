@@ -27,9 +27,8 @@
         'wizard/search_appointment_view.xml',
         'views/club_view.xml',
         'views/club_area_view.xml',
+        'views/club_user_view.xml',
         'views/sale_order_view.xml',
-        'views/hr_employee_view.xml',
-        'views/partner_view.xml',
         'views/club_partner_product_view.xml'
     ],
     'demo': [],
