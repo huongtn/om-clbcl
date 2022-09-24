@@ -10,7 +10,6 @@
                 <field name="club_id"/>
                 <field name="partner_id"/>
                 <field name="product_id"/>
-                <field name="variants"/>
                 <field name="qty"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -29,9 +28,6 @@
                                     <li>
                                         Qty: <field name="qty"/>
                                     </li>
-                                    <li>
-                                        Variants: <field name="variants"/>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -49,7 +45,6 @@
                 <field name="club_id"/>
                 <field name="partner_id"/>
                 <field name="product_id"/>
-                <field name="variants"/>
                 <field name="qty"/>
 
             </tree>
@@ -83,7 +78,6 @@
                             <field name="club_id"/>
                             <field name="partner_id"/>
                             <field name="product_id"/>
-                            <field name="variants"/>
                             <field name="qty"/>
                         </group> 
                     </group> 
@@ -97,7 +91,6 @@
         <field name="model">clbcl.club.partner.product</field>
         <field name="arch" type="xml">
             <search string="Patients">
-                <field name="variants"/>
                 <field name="product_id"/>
                 <separator/>
 
@@ -125,13 +118,13 @@
     </record>
 
     <menuitem id="menu_club_partner_product_root"
-              name="Club partner product"
+              name="Hàng trong kho"
               parent="menu_clbcl_root"
               sequence="11"/>
 
 
     <menuitem id="menu_club_partner_product"
-              name="Club partner product"
+              name="Hàng trong kho club"
               parent="menu_club_partner_product_root"
               action="action_club_partner_product"
               sequence="11"/>
