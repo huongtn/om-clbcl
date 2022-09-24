@@ -13,6 +13,8 @@ class CLBCLClubPartnerProduct(models.Model):
     partner_id = fields.Many2one("res.partner", string='Customer')
     qty = fields.Float(string='Qty', tracking=True)
     variants = fields.Text(string='Variants')
+    is_empty = fields.Boolean(string="Empty", default=True)
+    category = fields.Text(string="Category", default="Rượu")
     # product_template_id = fields.Integer(string='Product template', related='product_id.product_tmpl_id', tracking=True, store=True)
     product_tmpl_id = fields.Many2one('product.template', related='product_id.product_tmpl_id', store=True)
 
