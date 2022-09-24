@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_clblc_club,access.clbcl.club,model_clbcl_club,,1,1,1,1
+access_clblc_club_partner_product,access.clbcl.club.partner.product,model_clbcl_club_partner_product,,1,1,1,1
