@@ -22,6 +22,7 @@ class CLBCLUserOtp(models.Model):
         values['otp'] = "{}".format(randint(100000, 999999))
         values['expired_at'] = datetime.datetime.now() + timedelta(minutes=2)
         res = super(CLBCLUserOtp, self).create(values)
+        # send otp here
         return res
 
 
