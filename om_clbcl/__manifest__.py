@@ -31,7 +31,8 @@
         'views/club_user_view.xml',
         'views/sale_order_view.xml',
         'views/club_partner_product_view.xml',
-        'views/product_category_view.xml'
+        'views/product_category_view.xml',
+        'views/product_template_view.xml'
     ],
     'demo': [],
     'qweb': [],

@@ -6,10 +6,10 @@
         <field name="model">product.category</field>
         <field name="inherit_id" ref="product.product_category_form_view"/>
         <field name="arch" type="xml">
-             <xpath expr="//field[@name='parent_id']" position="after">
-                 <field name="image_128" widget="image"/>
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="image_128" widget="image"/>
+                <field name="image_128_active" widget="image"/>
             </xpath>
         </field>
     </record>
-
 </odoo>
