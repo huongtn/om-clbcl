@@ -15,8 +15,11 @@ class ProductTemplate(models.Model):
 
     def _compute_star(self):
         for rec in self:
-            star = 0
-            reviews = self.env['clbcl.product.review'].search([('product_id', '=', rec.id)])
-            for review in reviews:
-                star += review.star
-            rec.star = star/reviews.count
+            if rec.review_count <= 0:
+                rec.star = 0
+            else:
+                star = 0
+                reviews = self.env['clbcl.product.review'].search([('product_id', '=', rec.id)])
+                for review in reviews:
+                    star += review.star
+                rec.star = star / rec.review_count
