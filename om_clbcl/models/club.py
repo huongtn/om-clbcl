@@ -11,6 +11,7 @@ class CLBCLClub(models.Model):
 
     club_name = fields.Char(string='Name', required=True, tracking=True)
     address = fields.Text(string='Address')
+    phone = fields.Text(string='Phone')
     note = fields.Text(string='Note')
     image = fields.Binary(string="Club Image")
     active = fields.Boolean(string="Active", default=True)
