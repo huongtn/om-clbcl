@@ -6,7 +6,8 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
     club_id = fields.Many2one("clbcl.club", string='Club')
-
+    voucher_id = fields.Many2one("clbcl.voucher", string='Voucher')
+    voucher_discount = fields.Integer(string="Voucher Discount")
     @api.model_create_multi
     def create(self, values):
         res = super(SaleOrder, self).create(values)

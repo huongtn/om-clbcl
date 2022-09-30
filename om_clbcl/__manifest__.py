@@ -33,7 +33,8 @@
         'views/club_partner_product_view.xml',
         'views/product_category_view.xml',
         'views/product_template_view.xml',
-        'views/product_product_view.xml'
+        'views/product_product_view.xml',
+        'views/voucher_view.xml'
     ],
     'demo': [],
     'qweb': [],

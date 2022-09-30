@@ -3,3 +3,4 @@ access_clblc_club,access.clbcl.club,model_clbcl_club,,1,1,1,1
 access_clblc_club_partner_product,access.clbcl.club.partner.product,model_clbcl_club_partner_product,,1,1,1,1
 access_clblc_user_otp,access.clbcl.user.otp,model_clbcl_user_otp,,1,1,1,1
 access_clblc_product_review_otp,access.clbcl.product.review,model_clbcl_product_review,,1,1,1,1
+access_clblc_voucher,access.clbcl.voucher,model_clbcl_voucher,,1,1,1,1
