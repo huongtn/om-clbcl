@@ -10,6 +10,7 @@
                 <field name="club_id"/>
                 <field name="voucher_id"/>
                 <field name="voucher_discount"/>
+                <field name="clbcl_status"/>
             </xpath>
         </field>
     </record>
