@@ -6,6 +6,7 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
     club_id = fields.Many2one("clbcl.club", string='Club')
+    first_product_template_id = fields.Integer(string="First Product Tempate ID")
     voucher_id = fields.Many2one("clbcl.voucher", string='Voucher')
     voucher_discount = fields.Integer(string="Voucher Discount")
     clbcl_status = fields.Selection([
