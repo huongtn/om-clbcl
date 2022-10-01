@@ -81,12 +81,12 @@ class CLBCLController(http.Controller):
             for friend in rec['friends']:
                 request.env['clbcl.club.booking.friend'].create({
                     'booking_id': clubBooking.id,
-                    'friendId': friend
+                    'friend_id': friend
                 })
             for product in rec['products']:
                 request.env['clbcl.club.booking.product'].create({
                     'booking_id': clubBooking.id,
-                    'productId': product.product_id,
-                    'qty':product.qty
+                    'product_id': product[0],
+                    'qty': product[1]
                 })
         return {'status': 200, 'message': 'Thêm mới thành công'}
