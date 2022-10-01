@@ -12,7 +12,7 @@ from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
-class OTPController(http.Controller):
+class CLBCLController(http.Controller):
 
     @http.route('/createotp', type='json', auth='public', methods=['POST'])
     def createotp(self, **rec):
@@ -52,3 +52,41 @@ class OTPController(http.Controller):
         })
         # send otp here
         return {'status': 200, 'response': user.login, 'message': 'Success'}
+
+    @http.route('/verifyVoucher', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def verifyVoucher(self, **rec):
+        voucher = request.env['clbcl.voucher'].search([
+            ('code', '=', rec['code']),
+            ('to_date', '>=', datetime.datetime.now()),
+            ('min_amount', '<=',  rec['order_amount'])
+                                                          ])
+        if voucher.id:
+            if voucher.type == 'amount':
+                return {'status': 200, 'discount_amount': voucher.discount, 'message': 'Mã khuyễn mãi hợp lệ'}
+            else:
+                return {'status': 200, 'discount_amount': max(voucher.discount * rec['order_amount']/100, voucher.max_discount), 'message': 'Mã khuyễn mãi hợp lệ'}
+        else:
+            return {'status': 400,  'message': 'Mã khuyễn mãi không hợp lệ'}
+
+    @http.route('/createBooking', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def createBooking(self, **rec):
+        clubBooking = request.env['clbcl.club.booking'].create({
+            'club_id': rec['club_id'],
+            'partner_id': rec['partner_id'],
+            'date_time': rec['date_time'],
+            'table': rec['table'],
+            'participant_count': rec['participant_count']
+        })
+        if clubBooking.id:
+            for friend in rec['friends']:
+                request.env['clbcl.club.booking.friend'].create({
+                    'booking_id': clubBooking.id,
+                    'friendId': friend
+                })
+            for product in rec['products']:
+                request.env['clbcl.club.booking.product'].create({
+                    'booking_id': clubBooking.id,
+                    'productId': product.product_id,
+                    'qty':product.qty
+                })
+        return {'status': 200, 'message': 'Thêm mới thành công'}

@@ -8,3 +8,6 @@ access_clblc_friend,access.clbcl.friend,model_clbcl_friend,,1,1,1,1
 access_clblc_province,access.clbcl.province,model_clbcl_province,,1,1,1,1
 access_clblc_district,access.clbcl.district,model_clbcl_district,,1,1,1,1
 access_clblc_ward,access.clbcl.ward,model_clbcl_ward,,1,1,1,1
+access_clblc_club_booking,access.clbcl.club.booking,model_clbcl_club_booking,,1,1,1,1
+access_clblc_club_booking_friend,access.clbcl.club.booking.friend,model_clbcl_club_booking_friend,,1,1,1,1
+access_clblc_club_booking_product,access.clbcl.club.booking.product,model_clbcl_club_booking_product,,1,1,1,1

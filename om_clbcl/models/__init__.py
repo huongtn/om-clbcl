@@ -14,3 +14,6 @@ from . import club_friend
 from . import province
 from . import district
 from . import ward
+from . import club_booking
+from . import club_booking_friend
+from . import club_booking_product
