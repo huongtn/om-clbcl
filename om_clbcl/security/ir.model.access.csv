@@ -5,3 +5,6 @@ access_clblc_user_otp,access.clbcl.user.otp,model_clbcl_user_otp,,1,1,1,1
 access_clblc_product_review_otp,access.clbcl.product.review,model_clbcl_product_review,,1,1,1,1
 access_clblc_voucher,access.clbcl.voucher,model_clbcl_voucher,,1,1,1,1
 access_clblc_friend,access.clbcl.friend,model_clbcl_friend,,1,1,1,1
+access_clblc_province,access.clbcl.province,model_clbcl_province,,1,1,1,1
+access_clblc_district,access.clbcl.district,model_clbcl_district,,1,1,1,1
+access_clblc_ward,access.clbcl.ward,model_clbcl_ward,,1,1,1,1
