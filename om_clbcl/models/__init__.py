@@ -11,3 +11,6 @@ from . import res_partner
 from . import product_product
 from . import voucher
 from . import club_friend
+from . import province
+from . import district
+from . import ward
