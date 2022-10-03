@@ -18,27 +18,28 @@ class SaleOrder(models.Model):
     @api.model_create_multi
     def create(self, values):
         res = super(SaleOrder, self).create(values)
-        for rec in res:
-            order_lines = self.env['sale.order.line'].search([('order_id', '=', rec.id)])
-            for order_line in order_lines:
-                old_record = self.env['clbcl.club.partner.product'].search(
-                    [('product_id', '=', order_line.product_id.id)
-                        , ('partner_id', '=', rec.partner_id.id)
-                        , ('club_id', '=', rec.club_id.id)
-                        , ('is_empty', '=', False)])
-                if old_record.id:
-                    old_record.write({
-                        'qty': old_record.qty + order_line.product_uom_qty
-                    })
-                else:
-                    self.env['clbcl.club.partner.product'].create({
-                        'product_id': order_line.product_id.id,
-                        'partner_id': rec.partner_id.id,
-                        'club_id': rec.club_id.id,
-                        'qty': order_line.product_uom_qty,
-                        'is_empty': False,
-                        'variants': ""
-                    })
+        if res.club_id:
+            for rec in res:
+                order_lines = self.env['sale.order.line'].search([('order_id', '=', rec.id)])
+                for order_line in order_lines:
+                    old_record = self.env['clbcl.club.partner.product'].search(
+                        [('product_id', '=', order_line.product_id.id)
+                            , ('partner_id', '=', rec.partner_id.id)
+                            , ('club_id', '=', rec.club_id.id)
+                            , ('is_empty', '=', False)])
+                    if old_record.id:
+                        old_record.write({
+                            'qty': old_record.qty + order_line.product_uom_qty
+                        })
+                    else:
+                        self.env['clbcl.club.partner.product'].create({
+                            'product_id': order_line.product_id.id,
+                            'partner_id': rec.partner_id.id,
+                            'club_id': rec.club_id.id,
+                            'qty': order_line.product_uom_qty,
+                            'is_empty': False,
+                            'variants': ""
+                        })
         return res
 
     def write(self, values):

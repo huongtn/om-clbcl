@@ -17,3 +17,5 @@ from . import ward
 from . import club_booking
 from . import club_booking_friend
 from . import club_booking_product
+from . import club_move
+from . import club_move_product

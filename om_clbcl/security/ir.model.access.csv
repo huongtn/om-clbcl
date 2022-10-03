@@ -11,3 +11,5 @@ access_clblc_ward,access.clbcl.ward,model_clbcl_ward,,1,1,1,1
 access_clblc_club_booking,access.clbcl.club.booking,model_clbcl_club_booking,,1,1,1,1
 access_clblc_club_booking_friend,access.clbcl.club.booking.friend,model_clbcl_club_booking_friend,,1,1,1,1
 access_clblc_club_booking_product,access.clbcl.club.booking.product,model_clbcl_club_booking_product,,1,1,1,1
+access_clblc_club_move,access.clbcl.club.move,model_clbcl_club_move,,1,1,1,1
+access_clblc_club_move_product,access.clbcl.club.move.product,model_clbcl_club_move_product,,1,1,1,1
