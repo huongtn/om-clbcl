@@ -13,3 +13,4 @@ access_clblc_club_booking_friend,access.clbcl.club.booking.friend,model_clbcl_cl
 access_clblc_club_booking_product,access.clbcl.club.booking.product,model_clbcl_club_booking_product,,1,1,1,1
 access_clblc_club_move,access.clbcl.club.move,model_clbcl_club_move,,1,1,1,1
 access_clblc_club_move_product,access.clbcl.club.move.product,model_clbcl_club_move_product,,1,1,1,1
+access_clblc_product_bookmark,access.clbcl.product.bookmark,model_clbcl_product_bookmark,,1,1,1,1

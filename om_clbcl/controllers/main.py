@@ -163,3 +163,28 @@ class CLBCLController(http.Controller):
                 else:
                     return {'status': 400, 'message': 'Số lượng sản phẩm không đủ'}
             return {'status': 200, 'message': 'Thêm mới thành công'}
+
+    @http.route('/getMyBookmarks', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def getMyBookmarks(self, **rec):
+        myBookmarks = request.env['clbcl.product.bookmark'].search_read([('partner_id', '=', rec['partner_id'])])
+        productIds = []
+        for myBookmark in myBookmarks:
+            productIds.append(myBookmark['product_id'][0])
+
+        return {'status': 200, 'productIds': productIds}
+
+    @http.route('/addBookmark', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def addBookmark(self, **rec):
+        request.env['clbcl.product.bookmark'].search([('partner_id', '=', rec['partner_id']),
+                                                      ('product_id', '=', rec['product_id'])]).unlink()
+        request.env['clbcl.product.bookmark'].create({
+                'partner_id': rec['partner_id'],
+                'product_id': rec['product_id']
+            })
+        return {'status': 200, 'message': 'added successful'}
+
+    @http.route('/removeBookmark', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def removeBookmark(self, **rec):
+        request.env['clbcl.product.bookmark'].search([('partner_id', '=', rec['partner_id']),
+                                                      ('product_id', '=', rec['product_id'])]).unlink()
+        return {'status': 200, 'message': 'removed successful'}

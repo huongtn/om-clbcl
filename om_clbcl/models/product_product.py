@@ -11,6 +11,8 @@ class ProductTemplate(models.Model):
     smooth_tannic = fields.Integer(string='Smooth to Tannic')
     dry_sweet = fields.Integer(string='Dry to Sweet')
     soft_acidic = fields.Integer(string='Soft to Acidic')
+    top_search = fields.Boolean(string="Top search")
+    top_food = fields.Boolean(string="Top food")
     def _compute_review_count(self):
         for rec in self:
             review_count = self.env['clbcl.product.review'].search_count([('product_id', '=', rec.id)])
