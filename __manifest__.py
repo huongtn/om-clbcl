@@ -19,11 +19,6 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'data/data.xml',
-        'data/slide_data_v12.xml',
-        'data/slide_data_v13.xml',
-        'data/slide_data_v14.xml',
-        'data/slide_data_v15.xml',
         'wizard/create_appointment_view.xml',
         'wizard/search_appointment_view.xml',
         'views/club_view.xml',
