@@ -11,7 +11,6 @@
             <field name="allow_comment" eval="True"/>
             <field name="promote_strategy">latest</field>
             <field name="is_published" eval="True"/>
-            <field name="image_1920" type="base64" file="om_hospital/static/src/img/odoo14_development.png"/>
             <field name="description">Learn How to Customize the Odoo ERP and Create New Modules.</field>
             <field name="create_date" eval="DateTime.now() - relativedelta(days=7)"/>
         </record>
@@ -21,7 +20,7 @@
             <field name="sequence">1</field>
             <field name="url">https://www.youtube.com/watch?v=p7SJW36lqVE</field>
             <field name="slide_type">video</field>
-            <field name="channel_id" ref="om_hospital.slide_odoo_14_development"/>
+            <field name="channel_id" ref="om_clbcl.slide_odoo_14_development"/>
             <field name="is_published" eval="True"/>
             <field name="is_preview" eval="True"/>
             <field name="completion_time">1</field>
@@ -33,7 +32,7 @@
             <field name="sequence">2</field>
             <field name="url">https://www.youtube.com/watch?v=DJyPx5u6sd0</field>
             <field name="slide_type">video</field>
-            <field name="channel_id" ref="om_hospital.slide_odoo_14_development"/>
+            <field name="channel_id" ref="om_clbcl.slide_odoo_14_development"/>
             <field name="is_published" eval="True"/>
             <field name="is_preview" eval="True"/>
             <field name="completion_time">1</field>
@@ -44,7 +43,7 @@
             <field name="sequence">3</field>
             <field name="url">https://www.youtube.com/watch?v=I8FNdellz3Y</field>
             <field name="slide_type">video</field>
-            <field name="channel_id" ref="om_hospital.slide_odoo_14_development"/>
+            <field name="channel_id" ref="om_clbcl.slide_odoo_14_development"/>
             <field name="is_published" eval="True"/>
             <field name="is_preview" eval="True"/>
             <field name="completion_time">1</field>
@@ -55,7 +54,7 @@
             <field name="sequence">4</field>
             <field name="url">https://www.youtube.com/watch?v=m7AZtSLv-wk</field>
             <field name="slide_type">video</field>
-            <field name="channel_id" ref="om_hospital.slide_odoo_14_development"/>
+            <field name="channel_id" ref="om_clbcl.slide_odoo_14_development"/>
             <field name="is_published" eval="True"/>
             <field name="is_preview" eval="True"/>
             <field name="completion_time">1</field>
@@ -66,7 +65,7 @@
             <field name="sequence">5</field>
             <field name="url">https://www.youtube.com/watch?v=XcVMcJYHuzc</field>
             <field name="slide_type">video</field>
-            <field name="channel_id" ref="om_hospital.slide_odoo_14_development"/>
+            <field name="channel_id" ref="om_clbcl.slide_odoo_14_development"/>
             <field name="is_published" eval="True"/>
             <field name="is_preview" eval="True"/>
             <field name="completion_time">1</field>
@@ -77,7 +76,7 @@
             <field name="sequence">6</field>
             <field name="url">https://www.youtube.com/watch?v=KFXoeEzwxzQ</field>
             <field name="slide_type">video</field>
-            <field name="channel_id" ref="om_hospital.slide_odoo_14_development"/>
+            <field name="channel_id" ref="om_clbcl.slide_odoo_14_development"/>
             <field name="is_published" eval="True"/>
             <field name="is_preview" eval="True"/>
             <field name="completion_time">1</field>
@@ -88,7 +87,7 @@
             <field name="sequence">7</field>
             <field name="url">https://www.youtube.com/watch?v=v0Qn-HKtir8</field>
             <field name="slide_type">video</field>
-            <field name="channel_id" ref="om_hospital.slide_odoo_14_development"/>
+            <field name="channel_id" ref="om_clbcl.slide_odoo_14_development"/>
             <field name="is_published" eval="True"/>
             <field name="is_preview" eval="True"/>
             <field name="completion_time">1</field>
@@ -99,7 +98,7 @@
             <field name="sequence">8</field>
             <field name="url">https://www.youtube.com/watch?v=7hc3WxxWqKs</field>
             <field name="slide_type">video</field>
-            <field name="channel_id" ref="om_hospital.slide_odoo_14_development"/>
+            <field name="channel_id" ref="om_clbcl.slide_odoo_14_development"/>
             <field name="is_published" eval="True"/>
             <field name="is_preview" eval="True"/>
             <field name="completion_time">1</field>
@@ -110,7 +109,7 @@
             <field name="sequence">9</field>
             <field name="url">https://www.youtube.com/watch?v=3iY3ea-wvjw</field>
             <field name="slide_type">video</field>
-            <field name="channel_id" ref="om_hospital.slide_odoo_14_development"/>
+            <field name="channel_id" ref="om_clbcl.slide_odoo_14_development"/>
             <field name="is_published" eval="True"/>
             <field name="is_preview" eval="True"/>
             <field name="completion_time">1</field>
