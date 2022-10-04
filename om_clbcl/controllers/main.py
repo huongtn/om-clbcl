@@ -188,3 +188,15 @@ class CLBCLController(http.Controller):
         request.env['clbcl.product.bookmark'].search([('partner_id', '=', rec['partner_id']),
                                                       ('product_id', '=', rec['product_id'])]).unlink()
         return {'status': 200, 'message': 'removed successful'}
+
+    @http.route('/getMyPoints', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def getMyPoints(self, **rec):
+        return {'status': 200, 'points': request.env['clbcl.point'].search_read([('partner_id', '=', rec['partner_id'])])}
+
+    @http.route('/addPoint', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def addPoint(self, **rec):
+        request.env['clbcl.point'].create({
+            'point': rec['point'],
+            'partner_id': rec['partner_id'],
+        })
+        return {'status': 200, 'message': 'ok'}

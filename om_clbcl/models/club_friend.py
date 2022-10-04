@@ -3,7 +3,7 @@
 from odoo import api, fields, models, _
 
 
-class CLBCLClubPartnerProduct(models.Model):
+class CLBCLClubFriend(models.Model):
     _name = "clbcl.friend"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "CLBCL Friend"

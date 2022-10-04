@@ -18,6 +18,11 @@ class SaleOrder(models.Model):
     @api.model_create_multi
     def create(self, values):
         res = super(SaleOrder, self).create(values)
+        self.env['clbcl.point'].create({
+            'partner_id': res.partner_id.id,
+            'order_id': res.id,
+            'point': res.amount_total/100,
+        })
         if res.club_id:
             for rec in res:
                 order_lines = self.env['sale.order.line'].search([('order_id', '=', rec.id)])

@@ -20,3 +20,4 @@ from . import club_booking_product
 from . import club_move
 from . import club_move_product
 from . import product_bookmark
+from . import point
