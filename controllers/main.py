@@ -213,8 +213,8 @@ class CLBCLController(http.Controller):
         })
         return {'status': 200, 'message': 'ok'}
 
-    @http.route('/getProductsByCLub', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def getProductsByCLub(self, **rec):
+    @http.route('/getproductsbyclub', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def getproductsbyclub(self, **rec):
         stocks = request.env['clbcl.club.partner.product'].search_read([('partner_id', '=', rec['partner_id']),
                                                                         ('club_id', '=', rec['club_id']),
                                                                         ('is_empty', '=', False),
