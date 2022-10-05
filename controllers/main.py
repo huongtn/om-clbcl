@@ -189,9 +189,9 @@ class CLBCLController(http.Controller):
         request.env['clbcl.product.bookmark'].search([('partner_id', '=', rec['partner_id']),
                                                       ('product_id', '=', rec['product_id'])]).unlink()
         request.env['clbcl.product.bookmark'].create({
-                'partner_id': rec['partner_id'],
-                'product_id': rec['product_id']
-            })
+            'partner_id': rec['partner_id'],
+            'product_id': rec['product_id']
+        })
         return {'status': 200, 'message': 'added successful'}
 
     @http.route('/removeBookmark', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
@@ -202,7 +202,8 @@ class CLBCLController(http.Controller):
 
     @http.route('/getMyPoints', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def getMyPoints(self, **rec):
-        return {'status': 200, 'points': request.env['clbcl.point'].search_read([('partner_id', '=', rec['partner_id'])])}
+        return {'status': 200,
+                'points': request.env['clbcl.point'].search_read([('partner_id', '=', rec['partner_id'])])}
 
     @http.route('/addPoint', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def addPoint(self, **rec):
@@ -220,14 +221,14 @@ class CLBCLController(http.Controller):
                                                                         ('qty', '>', 0)
                                                                         ])
         products = {
-            'foods':[],
-            'wines':[]
+            'foods': [],
+            'wines': []
         }
         for stock in stocks:
             product = request.env['product.product'].search_read([('id', '=', stock['product_id'][0])])
-            productDetails= {
+            productDetails = {
                 'product': {
-                    'id':product[0]['id'],
+                    'id': product[0]['id'],
                     'name': product[0]['name'],
                     'description': product[0]['description'],
                     'display_name': product[0]['display_name'],
