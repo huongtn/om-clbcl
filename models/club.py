@@ -15,7 +15,6 @@ class CLBCLClub(models.Model):
     note = fields.Text(string='Note')
     image = fields.Binary(string="Club Image")
     active = fields.Boolean(string="Active", default=True)
-    image_128 = fields.Image(string="Image")
     area = fields.Selection([
         ('hanoi', 'Hà nội'),
         ('hochiminh', 'Hồ chí minh'),

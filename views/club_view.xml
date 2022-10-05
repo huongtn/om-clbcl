@@ -43,7 +43,7 @@
                 <field name="address"/>
                 <field name="phone"/>
                 <field name="note"/>
-                <field name="image_128" widget="image"/>
+                <field name="image" widget="image"/>
             </tree>
         </field>
     </record>
@@ -64,7 +64,7 @@
                             <field name="phone"/>
                             <field name="note"/>
                             <field name="active" invisible="1"/>
-                            <field name="image_128" widget="image"/>
+                            <field name="image" widget="image"/>
                         </group>
                     </group>
                 </sheet>
