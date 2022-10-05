@@ -211,3 +211,44 @@ class CLBCLController(http.Controller):
             'partner_id': rec['partner_id'],
         })
         return {'status': 200, 'message': 'ok'}
+
+    @http.route('/getProductsByCLub', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def getProductsByCLub(self, **rec):
+        stocks = request.env['clbcl.club.partner.product'].search_read([('partner_id', '=', rec['partner_id']),
+                                                                        ('club_id', '=', rec['club_id']),
+                                                                        ('is_empty', '=', False),
+                                                                        ('qty', '>', 0)
+                                                                        ])
+        products = {
+            'foods':[],
+            'wines':[]
+        }
+        for stock in stocks:
+            product = request.env['product.product'].search_read([('id', '=', stock['product_id'][0])])
+            productDetails= {
+                'product': {
+                    'id':product[0]['id'],
+                    'name': product[0]['name'],
+                    'description': product[0]['description'],
+                    'display_name': product[0]['display_name'],
+                    'categ_id': product[0]['categ_id'],
+                    'list_price': product[0]['list_price'],
+                    'lst_price': product[0]['lst_price'],
+                    'tax_string': product[0]['tax_string'],
+                    'taxes_id': product[0]['taxes_id'],
+                    'standard_price': product[0]['standard_price'],
+                    'star': product[0]['star'],
+                    'review_count': product[0]['review_count'],
+                    'light_bold': product[0]['light_bold'],
+                    'smooth_tannic': product[0]['smooth_tannic'],
+                    'dry_sweet': product[0]['dry_sweet'],
+                    'soft_acidic': product[0]['soft_acidic'],
+                    'product_template_variant_value_ids': product[0]['product_template_variant_value_ids']
+                },
+                'qty': stock['qty']
+            }
+            if 'Đồ ăn' in productDetails['product']['categ_id'][1]:
+                products['foods'].append(productDetails)
+            else:
+                products['wines'].append(productDetails)
+        return {'status': 200, 'products': products}
