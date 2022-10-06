@@ -32,9 +32,9 @@ class CLBCLController(http.Controller):
         old_record = request.env['res.users'].search(
             [('login', '=', rec['phone_number'])])
 
-        # old_record.write({
-        #     'password': rec['password']
-        # })
+        old_record.write({
+            'password': rec['password']
+        })
         return {'status': 200, 'response': old_record.login, 'message': 'Success'}
 
     @http.route('/signup', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
