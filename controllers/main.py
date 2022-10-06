@@ -43,7 +43,8 @@ class CLBCLController(http.Controller):
         user = request.env['res.users'].create({
             'name': rec['phone_number'],
             'login': rec['phone_number'],
-            'password': rec['password']
+            'password': rec['password'],
+            'active': False
         })
         request.env['clbcl.user.otp'].create({
             'otp': "{}".format(randint(100000, 999999)),
@@ -61,6 +62,13 @@ class CLBCLController(http.Controller):
         ])
         if otp.id:
             request.env['clbcl.user.otp'].search([('phone_number', '=', rec['phone_number'])]).unlink()
+            user = request.env['res.users'].search([('login', '=', rec['phone_number']),
+                                                    ('active', '=', False)])
+            if user.id:
+                user.write({
+                    'active': True
+                })
+
             return {'status': 200, 'message': 'OTP hợp lệ'}
         else:
             return {'status': 400, 'message': 'OTP không hợp lệ'}
