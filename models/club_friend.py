@@ -15,8 +15,9 @@ class CLBCLClubFriend(models.Model):
     def _compute_friend_partner_id(self):
         for rec in self:
             users = self.env['res.users'].search([('login', '=', rec.phone)])
-            for user in users:
-                rec.friend_partner_id = user.partner_id.id
+            if users.id: 
+                for user in users:
+                    rec.friend_partner_id = user.partner_id.id
 
 
 
