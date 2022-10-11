@@ -14,16 +14,3 @@ class CLBCLClubBooking(models.Model):
     table = fields.Text(string='Table')
     participant_count = fields.Integer(string='Participant Count')
     status = fields.Text(string='Status')
-
-
-
-
-
-
-
-
-
-
-
-
-

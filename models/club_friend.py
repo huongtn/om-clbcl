@@ -20,17 +20,3 @@ class CLBCLClubFriend(models.Model):
                     rec.friend_partner_id = user.partner_id.id
             else:
                 rec.friend_partner_id = 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-

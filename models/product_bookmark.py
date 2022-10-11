@@ -9,9 +9,3 @@ class CLBCLClubMoveProduct(models.Model):
     _description = "CLBCL Product Bookmark"
     product_id = fields.Many2one("product.product", string='Product')
     partner_id = fields.Many2one("res.partner", string='Customer')
-
-
-
-
-
-

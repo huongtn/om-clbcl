@@ -6,7 +6,6 @@ import datetime
 from datetime import timedelta
 
 
-
 class CLBCLDistrict(models.Model):
     _name = "clbcl.district"
     _description = "CLBCL District"
@@ -14,16 +13,3 @@ class CLBCLDistrict(models.Model):
     name = fields.Text(string='Name')
     code = fields.Text(string='Code')
     province_id = fields.Many2one("clbcl.province", string='province')
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -10,13 +10,3 @@ class CLBCLClubMoveProductItem(models.Model):
     move_id = fields.Many2one("clbcl.club.move", string='Move ID')
     product_id = fields.Many2one("product.product", string='Product')
     qty = fields.Float(string='Qty', tracking=True)
-
-
-
-
-
-
-
-
-
-

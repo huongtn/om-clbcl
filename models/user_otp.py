@@ -6,7 +6,6 @@ import datetime
 from datetime import timedelta
 
 
-
 class CLBCLUserOtp(models.Model):
     _name = "clbcl.user.otp"
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -24,18 +23,3 @@ class CLBCLUserOtp(models.Model):
         res = super(CLBCLUserOtp, self).create(values)
         # send otp here
         return res
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -27,13 +27,3 @@ class CLBCLClubPartnerProduct(models.Model):
         for rec in self:
             remain_count = rec.count - self.env['sale.order'].search_count([('voucher_id', '=', rec.id)])
             rec.remain_count = remain_count
-
-
-
-
-
-
-
-
-
-

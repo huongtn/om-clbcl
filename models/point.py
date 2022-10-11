@@ -10,15 +10,3 @@ class CLBCLPoint(models.Model):
     partner_id = fields.Many2one("res.partner", string='My')
     order_id = fields.Many2one("sale.order", string='Order')
     point = fields.Integer(string='Point')
-
-
-
-
-
-
-
-
-
-
-
-

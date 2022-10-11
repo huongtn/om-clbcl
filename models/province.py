@@ -6,24 +6,9 @@ import datetime
 from datetime import timedelta
 
 
-
 class CLBCLProvince(models.Model):
     _name = "clbcl.province"
     _description = "CLBCL Province"
 
     name = fields.Text(string='Name')
     code = fields.Text(string='Code')
-
-
-
-
-
-
-
-
-
-
-
-
-
-

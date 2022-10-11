@@ -28,15 +28,3 @@ class CLBCLClub(models.Model):
             default['club_name'] = _("%s (Copy)", self.club_name)
         default['note'] = "Copied Record"
         return super(CLBCLClub, self).copy(default)
-
-
-
-
-
-
-
-
-
-
-
-

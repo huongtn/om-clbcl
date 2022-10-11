@@ -10,12 +10,3 @@ class CLBCLClubMoveProduct(models.Model):
     from_club_id = fields.Many2one("clbcl.club", string='From Club')
     to_club_id = fields.Many2one("clbcl.club", string='To Club')
     partner_id = fields.Many2one("res.partner", string='Customer')
-
-
-
-
-
-
-
-
-

@@ -16,13 +16,16 @@
                             <div class="oe_kanban_details">
                                 <ul>
                                     <li>
-                                        Name: <field name="club_name"/>
+                                        Name:
+                                        <field name="club_name"/>
                                     </li>
                                     <li>
-                                        address: <field name="address"/>
+                                        address:
+                                        <field name="address"/>
                                     </li>
                                     <li>
-                                        area: <field name="area"/>
+                                        area:
+                                        <field name="area"/>
                                     </li>
                                 </ul>
                             </div>
@@ -121,7 +124,6 @@
               parent="menu_club_root"
               action="action_clbcl_club"
               sequence="10"/>
-
 
 
 </odoo>

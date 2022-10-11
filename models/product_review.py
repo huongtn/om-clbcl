@@ -6,7 +6,6 @@ import datetime
 from datetime import timedelta
 
 
-
 class CLBCLProductReview(models.Model):
     _name = "clbcl.product.review"
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -16,17 +15,3 @@ class CLBCLProductReview(models.Model):
     partner_id = fields.Many2one("res.partner", string='Customer')
     star = fields.Integer(string='Start', tracking=True)
     comment = fields.Text(string='Variants')
-
-
-
-
-
-
-
-
-
-
-
-
-
-

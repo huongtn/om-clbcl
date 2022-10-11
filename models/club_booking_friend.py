@@ -12,14 +12,3 @@ class CLBCLClubBookingFriend(models.Model):
     friend_id = fields.Many2one("clbcl.friend", string='Friend')
     phone = fields.Text(string='Phone Number')
     status = fields.Text(string='Status')
-
-
-
-
-
-
-
-
-
-
-

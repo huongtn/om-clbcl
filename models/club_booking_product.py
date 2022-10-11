@@ -11,16 +11,3 @@ class CLBCLClubBookingProduct(models.Model):
     booking_id = fields.Many2one("clbcl.club.booking", string='Club Booking')
     product_id = fields.Many2one("product.product", string='Product')
     qty = fields.Float(string='Qty', tracking=True)
-
-
-
-
-
-
-
-
-
-
-
-
-

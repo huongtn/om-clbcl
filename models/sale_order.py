@@ -15,13 +15,14 @@ class SaleOrder(models.Model):
         ('Đã hủy', 'Đã hủy'),
         ('Hoàn thành', 'Hoàn thành')
     ], required=True, default='Chờ lấy hàng', tracking=True)
+
     @api.model_create_multi
     def create(self, values):
         res = super(SaleOrder, self).create(values)
         self.env['clbcl.point'].create({
             'partner_id': res.partner_id.id,
             'order_id': res.id,
-            'point': res.amount_total/100,
+            'point': res.amount_total / 100,
         })
         if res.club_id:
             for rec in res:

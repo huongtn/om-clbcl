@@ -19,8 +19,6 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'wizard/create_appointment_view.xml',
-        'wizard/search_appointment_view.xml',
         'views/club_view.xml',
         'views/club_area_view.xml',
         'views/club_user_view.xml',

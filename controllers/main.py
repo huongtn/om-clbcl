@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 class CLBCLController(http.Controller):
 
     @http.route('/createotp', type='json', auth='public', methods=['POST'])
-    def createotp(self, **rec):
+    def create_otp(self, **rec):
         self.search([('phone_number', '=', rec['phone_number'])]).unlink()
         request.env['clbcl.user.otp'].create({
             'otp': "{}".format(randint(100000, 999999)),
@@ -28,7 +28,7 @@ class CLBCLController(http.Controller):
         return {'status': 200, 'response': 'Sent OTP', 'message': 'Success'}
 
     @http.route('/setpasss', type='json', auth='public', methods=['POST'])
-    def setpasss(self, **rec):
+    def set_passs(self, **rec):
         old_record = request.env['res.users'].search(
             [('login', '=', rec['phone_number'])])
 
@@ -38,7 +38,7 @@ class CLBCLController(http.Controller):
         return {'status': 200, 'response': old_record.login, 'message': 'Success'}
 
     @http.route('/signup', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def signUp(self, **rec):
+    def sign_up(self, **rec):
 
         user = request.env['res.users'].create({
             'name': rec['phone_number'],
@@ -55,7 +55,7 @@ class CLBCLController(http.Controller):
         return {'status': 200, 'response': user.login, 'message': 'Success'}
 
     @http.route('/verifyOTP', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def verifyOTP(self, **rec):
+    def verify_otp(self, **rec):
         otp = request.env['clbcl.user.otp'].search([
             ('phone_number', '=', rec['phone_number']),
             ('otp', '=', rec['otp'])
@@ -74,7 +74,7 @@ class CLBCLController(http.Controller):
             return {'status': 400, 'message': 'OTP không hợp lệ'}
 
     @http.route('/verifyVoucher', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def verifyVoucher(self, **rec):
+    def verify_voucher(self, **rec):
         voucher = request.env['clbcl.voucher'].search([
             ('code', '=', rec['code']),
             ('to_date', '>=', datetime.datetime.now()),
@@ -91,7 +91,7 @@ class CLBCLController(http.Controller):
             return {'status': 400, 'message': 'Mã khuyễn mãi không hợp lệ'}
 
     @http.route('/createBooking', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def createBooking(self, **rec):
+    def create_booking(self, **rec):
         clubBooking = request.env['clbcl.club.booking'].create({
             'club_id': rec['club_id'],
             'partner_id': rec['partner_id'],
@@ -116,7 +116,7 @@ class CLBCLController(http.Controller):
         return {'status': 200, 'message': 'Thêm mới thành công'}
 
     @http.route('/getBookings', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def getBookings(self, **rec):
+    def get_bookings(self, **rec):
         myBookings = request.env['clbcl.club.booking'].search_read([('partner_id', '=', rec['partner_id'])])
         friendBookings = []
         user = request.env['res.users'].search([('partner_id', '=', rec['partner_id'])])
@@ -129,14 +129,14 @@ class CLBCLController(http.Controller):
         return {'status': 200, 'myBookings': myBookings, 'friendBookings': friendBookings}
 
     @http.route('/getBookingById', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def getBookingById(self, **rec):
+    def get_booking_byid(self, **rec):
         booking = request.env['clbcl.club.booking'].search_read([('id', '=', rec['id'])])
         products = request.env['clbcl.club.booking.product'].search_read([('booking_id', '=', rec['id'])])
         friends = request.env['clbcl.club.booking.friend'].search_read([('booking_id', '=', rec['id'])])
         return {'status': 200, 'booking': booking[0], 'products': products, 'friends': friends}
 
     @http.route('/createMoveProducts', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def createMoveProducts(self, **rec):
+    def create_move_products(self, **rec):
         clubMove = request.env['clbcl.club.move'].create({
             'from_club_id': rec['from_club_id'],
             'to_club_id': rec['to_club_id'],
@@ -184,7 +184,7 @@ class CLBCLController(http.Controller):
             return {'status': 200, 'message': 'Thêm mới thành công'}
 
     @http.route('/getMyBookmarks', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def getMyBookmarks(self, **rec):
+    def get_my_bookmarks(self, **rec):
         myBookmarks = request.env['clbcl.product.bookmark'].search_read([('partner_id', '=', rec['partner_id'])])
         productIds = []
         for myBookmark in myBookmarks:
@@ -193,7 +193,7 @@ class CLBCLController(http.Controller):
         return {'status': 200, 'productIds': productIds}
 
     @http.route('/addBookmark', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def addBookmark(self, **rec):
+    def add_bookmark(self, **rec):
         request.env['clbcl.product.bookmark'].search([('partner_id', '=', rec['partner_id']),
                                                       ('product_id', '=', rec['product_id'])]).unlink()
         request.env['clbcl.product.bookmark'].create({
@@ -203,18 +203,18 @@ class CLBCLController(http.Controller):
         return {'status': 200, 'message': 'added successful'}
 
     @http.route('/removeBookmark', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def removeBookmark(self, **rec):
+    def remove_bookmark(self, **rec):
         request.env['clbcl.product.bookmark'].search([('partner_id', '=', rec['partner_id']),
                                                       ('product_id', '=', rec['product_id'])]).unlink()
         return {'status': 200, 'message': 'removed successful'}
 
     @http.route('/getMyPoints', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def getMyPoints(self, **rec):
+    def get_my_points(self, **rec):
         return {'status': 200,
                 'points': request.env['clbcl.point'].search_read([('partner_id', '=', rec['partner_id'])])}
 
     @http.route('/addPoint', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def addPoint(self, **rec):
+    def add_point(self, **rec):
         request.env['clbcl.point'].create({
             'point': rec['point'],
             'partner_id': rec['partner_id'],
@@ -222,7 +222,7 @@ class CLBCLController(http.Controller):
         return {'status': 200, 'message': 'ok'}
 
     @http.route('/getproductsbyclub', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
-    def getproductsbyclub(self, **rec):
+    def get_products_byclub(self, **rec):
         stocks = request.env['clbcl.club.partner.product'].search_read([('partner_id', '=', rec['partner_id']),
                                                                         ('club_id', '=', rec['club_id']),
                                                                         ('is_empty', '=', False),
