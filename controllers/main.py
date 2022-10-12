@@ -261,3 +261,26 @@ class CLBCLController(http.Controller):
             else:
                 products['wines'].append(productDetails)
         return {'status': 200, 'products': products}
+
+    @http.route('/getMyFriends', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def get_my_friends(self, **rec):
+        user = request.env['res.users'].search([('partner_id', '=', rec['partner_id'])])
+        sendingFriends = request.env['clbcl.friend'].search_read([('partner_id', '=', rec['partner_id'])])
+        receivingFriends = request.env['clbcl.friend'].search_read([('phone', '=', user.login)])
+        myFriends = {
+            'friends': [],
+            'sendingFriends': [],
+            'receivingFriends': []
+        }
+        for friend in sendingFriends:
+            if friend['status'] == 'Đồng ý':
+                myFriends['friends'].append(friend)
+            else:
+                myFriends['sendingFriends'].append(friend)
+
+        for friend in receivingFriends:
+            if friend['status'] == 'Đồng ý':
+                myFriends['friends'].append(friend)
+            else:
+                myFriends['receivingFriends'].append(friend)
+        return {'status': 200, 'myFriends': myFriends}

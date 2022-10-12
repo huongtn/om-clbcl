@@ -19,7 +19,7 @@ class CLBCLClub(models.Model):
         ('hanoi', 'Hà nội'),
         ('hochiminh', 'Hồ chí minh'),
         ('other', 'Khác'),
-    ], required=True, default='male', tracking=True)
+    ], required=True, default='hanoi', tracking=True)
 
     def copy(self, default=None):
         if default is None:

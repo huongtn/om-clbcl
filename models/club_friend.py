@@ -12,6 +12,12 @@ class CLBCLClubFriend(models.Model):
     name = fields.Text(string="Name")
     phone = fields.Text(string="Phone")
 
+    status = fields.Selection([
+        ('Chờ xác nhận', 'Chờ xác nhận'),
+        ('Đồng ý', 'Đồng ý')
+    ], required=True, default='Chờ xác nhận', tracking=True)
+
+
     def _compute_friend_partner_id(self):
         for rec in self:
             users = self.env['res.users'].search([('login', '=', rec.phone)])
