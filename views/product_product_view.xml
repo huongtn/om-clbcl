@@ -14,11 +14,8 @@
                     <field name="top_search"/>
                     <field name="top_food"/>
                 </group>
-<<<<<<< HEAD
                 <group>
-=======
-               <group>
->>>>>>> 5668e5c5be0ce5642fc6c231c29f109c1b2e408d
+                <group>
                     <field name="summary1"/>
                     <field name="summary2"/>
                     <field name="summary3"/>
