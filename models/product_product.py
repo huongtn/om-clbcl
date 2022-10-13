@@ -3,7 +3,7 @@
 from odoo import api, fields, models
 
 
-class ProductTemplate(models.Model):
+class ProductProduct(models.Model):
     _inherit = "product.product"
     review_count = fields.Integer(string='Review Count', compute='_compute_review_count')
     star = fields.Float(string='Star', compute='_compute_star')
