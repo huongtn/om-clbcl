@@ -6,14 +6,24 @@
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='sale_ok']" position="before">
-                    <group>
-                        <field name="light_bold"/>
-                        <field name="smooth_tannic"/>
-                        <field name="dry_sweet"/>
-                        <field name="soft_acidic"/>
-                        <field name="top_search"/>
-                        <field name="top_food"/>
-                    </group>
+                <group>
+                    <field name="light_bold"/>
+                    <field name="smooth_tannic"/>
+                    <field name="dry_sweet"/>
+                    <field name="soft_acidic"/>
+                    <field name="top_search"/>
+                    <field name="top_food"/>
+                </group>
+                <group>
+                    <field name="summary1"/>
+                    <field name="summary2"/>
+                    <field name="summary3"/>
+                </group>
+                <group>
+                    <field name="area"/>
+                    <field name="style"/>
+                    <field name="grape_type"/>
+                </group>
             </xpath>
         </field>
     </record>

@@ -14,6 +14,14 @@ class ProductTemplate(models.Model):
     top_search = fields.Boolean(string="Top search")
     top_food = fields.Boolean(string="Top food")
 
+    summary1 = fields.Text(string='Summary1')
+    summary2 = fields.Text(string='Summary2')
+    summary3 = fields.Text(string='Summary3')
+
+    area = fields.Text(string='Khu vực')
+    style = fields.Text(string='Phong cách')
+    grape_type = fields.Text(string='Loại nho')
+
     def _compute_review_count(self):
         for rec in self:
             review_count = self.env['clbcl.product.review'].search_count([('product_id', '=', rec.id)])
