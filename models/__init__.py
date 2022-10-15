@@ -21,3 +21,5 @@ from . import club_move
 from . import club_move_product
 from . import product_bookmark
 from . import point
+from . import send_gift
+from . import send_gift_product

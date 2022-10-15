@@ -284,3 +284,87 @@ class CLBCLController(http.Controller):
             else:
                 myFriends['receivingFriends'].append(friend)
         return {'status': 200, 'myFriends': myFriends}
+
+    @http.route('/getMyGifts', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def get_my_gift(self, **rec):
+        sending_gifts = request.env['clbcl.send.gift'].search_read([('partner_id', '=', rec['partner_id'])])
+        receiving_gifts = request.env['clbcl.send.gift'].search_read([('to_partner_id', '=', rec['partner_id'])])
+        my_gifts = {
+            'gifts': [],
+            'sending_gifts': [],
+            'receiving_gift': []
+        }
+        for gift in sending_gifts:
+            if gift['status'] == 'Đã nhận':
+                my_gifts['gifts'].append(gift)
+            else:
+                sending_gifts['sendingFriends'].append(gift)
+
+        for gift in receiving_gifts:
+            if gift['status'] == 'Đã nhận':
+                my_gifts['gifts'].append(gift)
+            else:
+                my_gifts['receiving_gift'].append(gift)
+        return {'status': 200, 'my_gifts': my_gifts}
+
+    @http.route('/createSendGift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def create_send_gift(self, **rec):
+        send_gift = request.env['clbcl.send.gift'].create({
+            'club_id': rec['club_id'],
+            'partner_id': rec['partner_id'],
+            'to_partner_id': rec['to_partner_id']
+        })
+        if send_gift.id:
+            for product in rec['products']:
+                request.env['clbcl.send.gift.product'].create({
+                    'send_gift_id': send_gift.id,
+                    'product_id': product[0],
+                    'qty': product[1]
+                })
+        return {'status': 200, 'message': 'Thêm mới thành công'}
+
+    @http.route('/acceptSendGift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def accept_send_gift(self, **rec):
+        for send_gift_id in rec['send_gift_id']:
+            send_gift = request.env['clbcl.send.gift'].search_read([('id', '=', send_gift_id)])
+            if send_gift.id:
+                products = request.env['clblc.send.gift.product'].search_read([('send_gift_id','=',send_gift.id)])
+                for product in products:
+                    from_old_record = request.env['clbcl.club.partner.product'].search(
+                        [('product_id', '=', product[0])
+                            , ('partner_id', '=', send_gift.partner_id)
+                            , ('club_id', '=', send_gift.club_id)
+                            , ('is_empty', '=', False)])
+                    if from_old_record.id:
+                        if from_old_record.qty < product[1]:
+                            return {'status': 400, 'message': 'Số lượng sản phẩm không đủ'}
+                        else:
+                            from_old_record.write({
+                                'qty': from_old_record.qty - product[1]
+                            })
+                            to_record = request.env['clbcl.club.partner.product'].search(
+                                [('product_id', '=', product[0])
+                                    , ('partner_id', '=', send_gift.to_partner_id)
+                                    , ('club_id', '=', send_gift.club_id)
+                                    , ('is_empty', '=', False)])
+                            if to_record.id:
+                                to_record.write({
+                                    'qty': to_record.qty + product[1]
+                                })
+                            else:
+                                request.env['clbcl.club.partner.product'].create({
+                                    'product_id': product[0],
+                                    'partner_id': send_gift.to_partner_id,
+                                    'club_id': send_gift.club_id,
+                                    'qty': product[1],
+                                    'is_empty': False,
+                                    'variants': ""
+                                })
+                    else:
+                        return {'status': 400, 'message': 'Số lượng sản phẩm không đủ'}
+
+                send_gift.write({
+                        'status': 'Đã nhận'
+                })
+
+        return {'status': 200, 'message': 'Cập nhật thành công'}

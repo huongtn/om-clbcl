@@ -15,7 +15,6 @@
                     <field name="top_food"/>
                 </group>
                 <group>
-                <group>
                     <field name="summary1"/>
                     <field name="summary2"/>
                     <field name="summary3"/>
