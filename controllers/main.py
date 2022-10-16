@@ -327,14 +327,14 @@ class CLBCLController(http.Controller):
     @http.route('/acceptSendGift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def accept_send_gift(self, **rec):
         for send_gift_id in rec['send_gift_id']:
-            send_gifts = request.env['clbcl.send.gift'].search_read([('id', '=', send_gift_id)])
+            send_gifts = request.env['clbcl.send.gift'].search([('id', '=', send_gift_id)])
             for send_gift in send_gifts:
                 products = request.env['clbcl.send.gift.product'].search_read([('send_gift_id', '=', 1)])
                 for product in products:
-                    from_old_record = request.env['clbcl.club.partner.product'].search_read(
+                    from_old_record = request.env['clbcl.club.partner.product'].search(
                         [('product_id', '=', product['product_id'][0])
-                            , ('partner_id', '=', send_gift['partner_id'][0])
-                            , ('club_id', '=', send_gift['club_id'][0])
+                            , ('partner_id', '=', send_gift.partner_id.id)
+                            , ('club_id', '=', send_gift.club_id.id)
                             , ('is_empty', '=', False)])
                     if from_old_record.id:
                         if from_old_record.qty < product['qty']:
@@ -343,10 +343,10 @@ class CLBCLController(http.Controller):
                             from_old_record.write({
                                 'qty': from_old_record.qty - product['qty']
                             })
-                            to_record = request.env['clbcl.club.partner.product'].search_read(
+                            to_record = request.env['clbcl.club.partner.product'].search(
                                 [('product_id', '=', product['product_id'][0])
-                                    , ('partner_id', '=', send_gift['to_partner_id'][0])
-                                    , ('club_id', '=', send_gift['club_id'][0])
+                                    , ('partner_id', '=', send_gift.to_partner_id.id)
+                                    , ('club_id', '=', send_gift.club_id.id)
                                     , ('is_empty', '=', False)])
                             if to_record.id:
                                 to_record.write({
@@ -355,8 +355,8 @@ class CLBCLController(http.Controller):
                             else:
                                 request.env['clbcl.club.partner.product'].create({
                                     'product_id': product['product_id'][0],
-                                    'partner_id': send_gift['to_partner_id'][0],
-                                    'club_id': send_gift['club_id'][0],
+                                    'partner_id': send_gift.to_partner_id.id,
+                                    'club_id': send_gift.club_id.id,
                                     'qty': product['qty'],
                                     'is_empty': False,
                                     'variants': ""
