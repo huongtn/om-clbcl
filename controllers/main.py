@@ -298,7 +298,7 @@ class CLBCLController(http.Controller):
             if gift['status'] == 'Đã nhận':
                 my_gifts['gifts'].append(gift)
             else:
-                sending_gifts['sendingFriends'].append(gift)
+                my_gifts['sending_gifts'].append(gift)
 
         for gift in receiving_gifts:
             if gift['status'] == 'Đã nhận':
@@ -312,7 +312,8 @@ class CLBCLController(http.Controller):
         send_gift = request.env['clbcl.send.gift'].create({
             'club_id': rec['club_id'],
             'partner_id': rec['partner_id'],
-            'to_partner_id': rec['to_partner_id']
+            'to_partner_id': rec['to_partner_id'],
+            'first_product_id': rec['products'][0][0]
         })
         if send_gift.id:
             for product in rec['products']:
@@ -326,37 +327,37 @@ class CLBCLController(http.Controller):
     @http.route('/acceptSendGift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def accept_send_gift(self, **rec):
         for send_gift_id in rec['send_gift_id']:
-            send_gift = request.env['clbcl.send.gift'].search_read([('id', '=', send_gift_id)])
-            if send_gift.id:
-                products = request.env['clblc.send.gift.product'].search_read([('send_gift_id','=',send_gift.id)])
+            send_gifts = request.env['clbcl.send.gift'].search_read([('id', '=', send_gift_id)])
+            for send_gift in send_gifts:
+                products = request.env['clbcl.send.gift.product'].search_read([('send_gift_id', '=', 1)])
                 for product in products:
-                    from_old_record = request.env['clbcl.club.partner.product'].search(
-                        [('product_id', '=', product[0])
-                            , ('partner_id', '=', send_gift.partner_id)
-                            , ('club_id', '=', send_gift.club_id)
+                    from_old_record = request.env['clbcl.club.partner.product'].search_read(
+                        [('product_id', '=', product['product_id'][0])
+                            , ('partner_id', '=', send_gift['partner_id'][0])
+                            , ('club_id', '=', send_gift['club_id'][0])
                             , ('is_empty', '=', False)])
                     if from_old_record.id:
-                        if from_old_record.qty < product[1]:
+                        if from_old_record.qty < product['qty']:
                             return {'status': 400, 'message': 'Số lượng sản phẩm không đủ'}
                         else:
                             from_old_record.write({
-                                'qty': from_old_record.qty - product[1]
+                                'qty': from_old_record.qty - product['qty']
                             })
-                            to_record = request.env['clbcl.club.partner.product'].search(
-                                [('product_id', '=', product[0])
-                                    , ('partner_id', '=', send_gift.to_partner_id)
-                                    , ('club_id', '=', send_gift.club_id)
+                            to_record = request.env['clbcl.club.partner.product'].search_read(
+                                [('product_id', '=', product['product_id'][0])
+                                    , ('partner_id', '=', send_gift['to_partner_id'][0])
+                                    , ('club_id', '=', send_gift['club_id'][0])
                                     , ('is_empty', '=', False)])
                             if to_record.id:
                                 to_record.write({
-                                    'qty': to_record.qty + product[1]
+                                    'qty': to_record.qty + product['qty']
                                 })
                             else:
                                 request.env['clbcl.club.partner.product'].create({
-                                    'product_id': product[0],
-                                    'partner_id': send_gift.to_partner_id,
-                                    'club_id': send_gift.club_id,
-                                    'qty': product[1],
+                                    'product_id': product['product_id'][0],
+                                    'partner_id': send_gift['to_partner_id'][0],
+                                    'club_id': send_gift['club_id'][0],
+                                    'qty': product['qty'],
                                     'is_empty': False,
                                     'variants': ""
                                 })
