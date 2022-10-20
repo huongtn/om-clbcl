@@ -17,3 +17,4 @@ access_clblc_product_bookmark,access.clbcl.product.bookmark,model_clbcl_product_
 access_clblc_point,access.clbcl.point,model_clbcl_point,,1,1,1,1
 access_clblc_send_gift,access.clbcl.send.gift,model_clbcl_send_gift,,1,1,1,1
 access_clblc_send_gift_product,access.clbcl.send.gift.product,model_clbcl_send_gift_product,,1,1,1,1
+access_clblc_bank_info,access.clbcl.bank.info,model_clbcl_bank_info,,1,1,1,1

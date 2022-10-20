@@ -309,19 +309,20 @@ class CLBCLController(http.Controller):
 
     @http.route('/createSendGift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def create_send_gift(self, **rec):
-        send_gift = request.env['clbcl.send.gift'].create({
-            'club_id': rec['club_id'],
-            'partner_id': rec['partner_id'],
-            'to_partner_id': rec['to_partner_id'],
-            'first_product_id': rec['products'][0][0]
-        })
-        if send_gift.id:
-            for product in rec['products']:
-                request.env['clbcl.send.gift.product'].create({
-                    'send_gift_id': send_gift.id,
-                    'product_id': product[0],
-                    'qty': product[1]
-                })
+        for club in rec['clubs']:
+            send_gift = request.env['clbcl.send.gift'].create({
+                'club_id': club['club_id'],
+                'partner_id': rec['partner_id'],
+                'to_partner_id': rec['to_partner_id'],
+                'first_product_id': club['products'][0][0]
+            })
+            if send_gift.id:
+                for product in club['products']:
+                    request.env['clbcl.send.gift.product'].create({
+                        'send_gift_id': send_gift.id,
+                        'product_id': product[0],
+                        'qty': product[1]
+                    })
         return {'status': 200, 'message': 'Thêm mới thành công'}
 
     @http.route('/acceptSendGift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)

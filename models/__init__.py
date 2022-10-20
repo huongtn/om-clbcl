@@ -23,3 +23,4 @@ from . import product_bookmark
 from . import point
 from . import send_gift
 from . import send_gift_product
+from . import bank_info
