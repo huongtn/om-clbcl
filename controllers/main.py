@@ -367,7 +367,14 @@ class CLBCLController(http.Controller):
                         return {'status': 400, 'message': 'Số lượng sản phẩm không đủ'}
 
                 send_gift.write({
-                        'status': 'Đã nhận'
+                    'status': 'Đã nhận'
                 })
 
         return {'status': 200, 'message': 'Cập nhật thành công'}
+
+    @http.route('/getBankInfo', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def get_bank_info(self, **rec):
+        order = request.env['sale.order'].search([('id', '=', rec['order_id'])])
+        banks = request.env['clbcl.bank.info'].search([])
+
+        return {'status': 200, 'banks': banks, 'order_name': order.name}
