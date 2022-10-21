@@ -15,7 +15,12 @@ class SaleOrder(models.Model):
         ('Đã hủy', 'Đã hủy'),
         ('Hoàn thành', 'Hoàn thành')
     ], required=True, default='Chờ lấy hàng', tracking=True)
-
+    clbcl_payment_status = fields.Selection([
+        ('Chưa thanh toán', 'Chưa thanh toán'),
+        ('Khách hàng thanh toán', 'Khách hàng thanh toán'),
+        ('Xác nhận thanh toán', 'Xác nhận thanh toán'),
+        ('Khác', 'Khác')
+    ], required=True, default='Chưa thanh toán', tracking=True)
     @api.model_create_multi
     def create(self, values):
         res = super(SaleOrder, self).create(values)

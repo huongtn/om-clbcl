@@ -11,6 +11,7 @@
                 <field name="voucher_id"/>
                 <field name="voucher_discount"/>
                 <field name="clbcl_status"/>
+                <field name="clbcl_payment_status"/>
             </xpath>
         </field>
     </record>
