@@ -375,6 +375,6 @@ class CLBCLController(http.Controller):
     @http.route('/getBankInfo', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_bank_info(self, **rec):
         order = request.env['sale.order'].search([('id', '=', rec['order_id'])])
-        banks = request.env['clbcl.bank.info'].search([])
+        banks = request.env['clbcl.bank.info'].search_read([])
 
         return {'status': 200, 'banks': banks, 'order_name': order.name}
