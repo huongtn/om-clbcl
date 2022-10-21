@@ -17,17 +17,13 @@
         </field>
     </record>
     <record id="view_club_users_tree" model="ir.ui.view">
-        <field name="name">res.club.users.form.inherit</field>
+        <field name="name">res.club.users.tree.inherit</field>
         <field name="model">res.users</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="base.view_users_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='lang']" position="before">
-                <page string="Club" name="club">
-                    <group>
-                        <field name="club_id"/>
-                    </group>
-                </page>
+                <field name="club_id"/>
             </xpath>
         </field>
     </record>
