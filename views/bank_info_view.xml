@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_clbcl_bank_info_kanban" model="ir.ui.view">
+        <field name="name">clbcl.bank.info.kanban</field>
+        <field name="model">clbcl.bank.info</field>
+        <field name="arch" type="xml">
+            <kanban default_order="id asc">
+                <field name="id"/>
+                <field name="bank_name"/>
+                <field name="image_url"/>
+                <field name="bank_account"/>
+                <field name="bank_account_number"/>
+                <field name="payment_content"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        Tân ngân hàng:
+                                        <field name="bank_name"/>
+                                    </li>
+                                    <li>
+                                        Link ảnh:
+                                        <field name="image_url"/>
+                                    </li>
+                                    <li>
+                                        Tên chủ tài khoản:
+                                        <field name="bank_account"/>
+                                    </li>
+                                    <li>
+                                       Số tài khoản:
+                                        <field name="bank_account_number"/>
+                                    </li>
+                                    <li>
+                                        Nội dung chuyển khoản:
+                                        <field name="payment_content"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_clbcl_bank_info_tree" model="ir.ui.view">
+        <field name="name">clbcl.bank.info.tree</field>
+        <field name="model">clbcl.bank.info</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="bank_name"/>
+                <field name="image_url"/>
+                <field name="bank_account"/>
+                <field name="bank_account_number"/>
+                <field name="payment_content"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_clbcl_bank_info_form" model="ir.ui.view">
+        <field name="name">clbcl.bank.info.form</field>
+        <field name="model">clbcl.bank.info</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="bank_name"/>
+                            <field name="image_url"/>
+                            <field name="bank_account"/>
+                            <field name="bank_account_number"/>
+                            <field name="payment_content"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_clbcl_bank_info_search" model="ir.ui.view">
+        <field name="name">clbcl.bank.info.search</field>
+        <field name="model">clbcl.bank.info</field>
+        <field name="arch" type="xml">
+            <search string="BankInfo">
+                <field name="bank_name"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Type" name="bank_name" context="{'group_by':'bank_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bank_info" model="ir.actions.act_window">
+        <field name="name">Bank</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clbcl.bank.info</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Voucher!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_bank_info_root"
+              name="Bank Info"
+              parent="menu_clbcl_root"
+              sequence="13"/>
+
+    <menuitem id="menu_bank_info"
+              name="Bank Info"
+              parent="menu_bank_info_root"
+              action="action_bank_info"
+              sequence="13"/>
+
+</odoo>
