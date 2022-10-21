@@ -56,22 +56,23 @@ class CLBCLController(http.Controller):
 
     @http.route('/verifyOTP', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def verify_otp(self, **rec):
-        otp = request.env['clbcl.user.otp'].search([
-            ('phone_number', '=', rec['phone_number']),
-            ('otp', '=', rec['otp'])
-        ])
-        if otp.id:
-            request.env['clbcl.user.otp'].search([('phone_number', '=', rec['phone_number'])]).unlink()
-            user = request.env['res.users'].search([('login', '=', rec['phone_number']),
-                                                    ('active', '=', False)])
-            if user.id:
-                user.write({
-                    'active': True
-                })
-
-            return {'status': 200, 'message': 'OTP hợp lệ'}
-        else:
-            return {'status': 400, 'message': 'OTP không hợp lệ'}
+        return {'status': 200, 'message': 'OTP hợp lệ'}
+        # otp = request.env['clbcl.user.otp'].search([
+        #     ('phone_number', '=', rec['phone_number']),
+        #     ('otp', '=', rec['otp'])
+        # ])
+        # if otp.id:
+        #     request.env['clbcl.user.otp'].search([('phone_number', '=', rec['phone_number'])]).unlink()
+        #     user = request.env['res.users'].search([('login', '=', rec['phone_number']),
+        #                                             ('active', '=', False)])
+        #     if user.id:
+        #         user.write({
+        #             'active': True
+        #         })
+        #
+        #     return {'status': 200, 'message': 'OTP hợp lệ'}
+        # else:
+        #     return {'status': 400, 'message': 'OTP không hợp lệ'}
 
     @http.route('/verifyVoucher', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def verify_voucher(self, **rec):
