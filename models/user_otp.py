@@ -8,7 +8,6 @@ from datetime import timedelta
 
 class CLBCLUserOtp(models.Model):
     _name = "clbcl.user.otp"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "CLBCL user otp"
 
     phone_number = fields.Text(string='Phone Number')

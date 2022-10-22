@@ -5,7 +5,6 @@ from odoo import api, fields, models, _
 
 class CLBCLCSendGift(models.Model):
     _name = "clbcl.send.gift"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "CLBCL Send gift"
     club_id = fields.Many2one("clbcl.club", string='Club')
     partner_id = fields.Many2one("res.partner", string='Customer')

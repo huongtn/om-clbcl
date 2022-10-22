@@ -5,7 +5,6 @@ from odoo import api, fields, models, _
 
 class CLBCLClubPartnerProduct(models.Model):
     _name = "clbcl.voucher"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "CLBCL Voucher"
 
     from_date = fields.Date(string='From Date')
