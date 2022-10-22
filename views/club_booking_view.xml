@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <kanban default_order="id asc">
                 <field name="id"/>
+                <field name="code"/>
                 <field name="club_id"/>
                 <field name="partner_id"/>
                 <field name="date_time"/>
@@ -17,6 +18,10 @@
                         <div t-attf-class="oe_kanban_global_click">
                             <div class="oe_kanban_details">
                                 <ul>
+                                    <li>
+                                        Code:
+                                        <field name="code"/>
+                                    </li>
                                     <li>
                                         Club:
                                         <field name="club_id"/>
@@ -55,6 +60,7 @@
         <field name="model">clbcl.club.booking</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="code"/>
                 <field name="club_id"/>
                 <field name="partner_id"/>
                 <field name="date_time"/>
@@ -75,6 +81,7 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name="code"/>
                             <field name="club_id"/>
                             <field name="partner_id"/>
                             <field name="date_time"/>

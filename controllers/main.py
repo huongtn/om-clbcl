@@ -101,6 +101,9 @@ class CLBCLController(http.Controller):
             'participant_count': rec['participant_count']
         })
         if clubBooking.id:
+            clubBooking.write({
+                'code': 'B'+str(clubBooking.id).zfill(5)
+            })
             for friend in rec['friends']:
                 friendInfo = request.env['clbcl.friend'].search([('id', '=', friend)])
                 request.env['clbcl.club.booking.friend'].create({
