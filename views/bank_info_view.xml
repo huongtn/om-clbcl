@@ -95,7 +95,7 @@
     </record>
 
     <record id="action_bank_info" model="ir.actions.act_window">
-        <field name="name">Bank</field>
+        <field name="name">Thông tin chuyển khoản</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">clbcl.bank.info</field>
         <field name="view_mode">tree,kanban,form</field>
@@ -108,12 +108,12 @@
     </record>
 
     <menuitem id="menu_bank_info_root"
-              name="Bank Info"
+              name="Thông tin chuyển khoản"
               parent="menu_clbcl_root"
               sequence="13"/>
 
     <menuitem id="menu_bank_info"
-              name="Bank Info"
+              name="Danh sách thẻ"
               parent="menu_bank_info_root"
               action="action_bank_info"
               sequence="13"/>

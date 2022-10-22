@@ -13,4 +13,9 @@ class CLBCLClubBooking(models.Model):
     date_time = fields.Datetime(string='Date time')
     table = fields.Text(string='Table')
     participant_count = fields.Integer(string='Participant Count')
-    status = fields.Text(string='Status')
+    status = fields.Selection([
+        ('Chờ xác nhận', 'Chờ xác nhận'),
+        ('Xác nhận', 'Xác nhận'),
+        ('Hủy', 'Hủy'),
+        ('Hoàn thành', 'Hoàn thành'),
+    ], required=True, default='Chờ xác nhận', tracking=True)

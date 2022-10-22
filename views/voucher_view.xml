@@ -157,7 +157,7 @@
               sequence="12"/>
 
     <menuitem id="menu_voucher"
-              name="Voucher club"
+              name="Danh sách voucher"
               parent="menu_voucher_root"
               action="action_voucher"
               sequence="12"/>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_clbcl_club_booking_kanban" model="ir.ui.view">
+        <field name="name">clbcl.club.booking.kanban</field>
+        <field name="model">clbcl.club.booking</field>
+        <field name="arch" type="xml">
+            <kanban default_order="id asc">
+                <field name="id"/>
+                <field name="club_id"/>
+                <field name="partner_id"/>
+                <field name="date_time"/>
+                <field name="table"/>
+                <field name="participant_count"/>
+                <field name="status"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        Club:
+                                        <field name="club_id"/>
+                                    </li>
+                                    <li>
+                                        Khách hàng:
+                                        <field name="partner_id"/>
+                                    </li>
+                                    <li>
+                                        Thời gian:
+                                        <field name="date_time"/>
+                                    </li>
+                                    <li>
+                                        Bàn:
+                                        <field name="table"/>
+                                    </li>
+                                    <li>
+                                        Số lượng:
+                                        <field name="participant_count"/>
+                                    </li>
+                                    <li>
+                                        Trạng thái:
+                                        <field name="status"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_clbcl_club_booking_tree" model="ir.ui.view">
+        <field name="name">clbcl.club.booking.tree</field>
+        <field name="model">clbcl.club.booking</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="club_id"/>
+                <field name="partner_id"/>
+                <field name="date_time"/>
+                <field name="table"/>
+                <field name="participant_count"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_clbcl_club_booking_form" model="ir.ui.view">
+        <field name="name">clbcl.club.booking.form</field>
+        <field name="model">clbcl.club.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="club_id"/>
+                            <field name="partner_id"/>
+                            <field name="date_time"/>
+                            <field name="table"/>
+                            <field name="participant_count"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_clbcl_club_booking_search" model="ir.ui.view">
+        <field name="name">clbcl.club.booking.search</field>
+        <field name="model">clbcl.club.booking</field>
+        <field name="arch" type="xml">
+            <search string="club">
+                <field name="club_id"/>
+                <separator/>
+                <group expand="1" string="Group By club_id">
+                    <filter string="Type" name="club_id" context="{'group_by':'club_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_club_booking" model="ir.actions.act_window">
+        <field name="name">Đặt bàn</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clbcl.club.booking</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Booking!
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_club_booking_root"
+              name="Đặt bàn"
+              parent="menu_clbcl_root"
+              sequence="14"/>
+    <menuitem id="menu_club_booking"
+              name="Danh sách đặt bàn"
+              parent="menu_club_booking_root"
+              action="action_club_booking"
+              sequence="14"/>
+</odoo>
