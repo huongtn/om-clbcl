@@ -21,5 +21,8 @@ class CLBCLClubBooking(models.Model):
     product_count = fields.Integer(string='Product', compute='get_product_count')
 
     def get_product_count(self):
-        count = self.env['clbcl.club.booking.product'].search_count([('booking_id', '=', self.id)])
-        self.product_count = count
+        try:
+            count = self.env['clbcl.club.booking.product'].search_count([('booking_id', '=', self.id)])
+            self.product_count = count
+        except:
+            self.product_count = 0
