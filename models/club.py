@@ -5,7 +5,6 @@ from odoo import api, fields, models, _
 
 class CLBCLClub(models.Model):
     _name = "clbcl.club"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "CLBCL Club"
     _rec_name = 'club_name'
 

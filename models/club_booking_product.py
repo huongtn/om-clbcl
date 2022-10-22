@@ -5,7 +5,6 @@ from odoo import api, fields, models, _
 
 class CLBCLClubBookingProduct(models.Model):
     _name = "clbcl.club.booking.product"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "CLBCL Club booking product"
 
     booking_id = fields.Many2one("clbcl.club.booking", string='Club Booking')
