@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="view_clbcl_club_booking_kanban" model="ir.ui.view">
         <field name="name">clbcl.club.booking.kanban</field>
         <field name="model">clbcl.club.booking</field>
@@ -12,6 +13,7 @@
                 <field name="date_time"/>
                 <field name="table"/>
                 <field name="participant_count"/>
+                <field name="product_count"/>
                 <field name="status"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -42,6 +44,11 @@
                                         Số lượng:
                                         <field name="participant_count"/>
                                     </li>
+
+                                    <li>
+                                        Số lượng SP:
+                                        <field name="product_count"/>
+                                    </li>
                                     <li>
                                         Trạng thái:
                                         <field name="status"/>
@@ -66,6 +73,7 @@
                 <field name="date_time"/>
                 <field name="table"/>
                 <field name="participant_count"/>
+                <field name="product_count"/>
                 <field name="status"/>
             </tree>
         </field>
@@ -87,6 +95,7 @@
                             <field name="date_time"/>
                             <field name="table"/>
                             <field name="participant_count"/>
+                            <field name="product_count"/>
                             <field name="status"/>
                         </group>
                     </group>

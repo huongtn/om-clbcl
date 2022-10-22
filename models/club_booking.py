@@ -18,3 +18,8 @@ class CLBCLClubBooking(models.Model):
         ('Hủy', 'Hủy'),
         ('Hoàn thành', 'Hoàn thành'),
     ], required=True, default='Chờ xác nhận', tracking=True)
+    product_count = fields.Integer(string='Product', compute='get_product_count')
+
+    def get_product_count(self):
+        count = self.env['clbcl.club.booking.product'].search_count([('booking_id', '=', self.id)])
+        self.product_count = count

@@ -29,7 +29,8 @@
         'views/product_product_view.xml',
         'views/voucher_view.xml',
         'views/bank_info_view.xml',
-        'views/club_booking_view.xml'
+        'views/club_booking_view.xml',
+        'views/club_booking_product_view.xml'
     ],
     'demo': [],
     'qweb': [],
