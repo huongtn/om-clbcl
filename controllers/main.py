@@ -102,7 +102,7 @@ class CLBCLController(http.Controller):
         })
         if clubBooking.id:
             clubBooking.write({
-                'code': 'B'+str(clubBooking.id).zfill(5)
+                'code': 'B' + str(clubBooking.id).zfill(5)
             })
             for friend in rec['friends']:
                 friendInfo = request.env['clbcl.friend'].search([('id', '=', friend)])
@@ -378,4 +378,5 @@ class CLBCLController(http.Controller):
         order = request.env['sale.order'].search([('id', '=', rec['order_id'])])
         banks = request.env['clbcl.bank.info'].search_read([])
 
-        return {'status': 200, 'banks': banks, 'order_name': order.name}
+        return {'status': 200, 'banks': banks, 'order_name': order.name, 'amount_total': order.amount_total,
+                'voucher_discount': order.voucher_discount}

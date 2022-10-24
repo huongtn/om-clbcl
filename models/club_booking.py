@@ -28,38 +28,44 @@ class CLBCLClubBooking(models.Model):
             self.product_count = 0
 
     def write(self, values):
-        if values['status'] == 'Hoàn thành':
-            products = self.env['clbcl.club.booking.product'].search([('booking_id', '=', self.id)])
-            for product in products:
-                old_record = self.env['clbcl.club.partner.product'].search(
-                    [('product_id', '=', product.product_id.id)
-                        , ('partner_id', '=', self.partner_id.id)
-                        , ('club_id', '=', self.club_id.id)
-                        , ('is_empty', '=', False)
-                        , ('qty', '>=', product.qty)])
-                if old_record.id:
-                    old_record.write({
-                        'qty': old_record.qty - product.qty
-                    })
-                    old_empty_record = self.env['clbcl.club.partner.product'].search(
+        if 'status' in values:
+            if values['status'] == 'Hoàn thành':
+                print('id', self.id)
+                print('partner_id', self.partner_id.id)
+                print('club_id', self.club_id.id)
+                products = self.env['clbcl.club.booking.product'].search([('booking_id', '=', self.id)])
+                for product in products:
+                    old_record = self.env['clbcl.club.partner.product'].search(
                         [('product_id', '=', product.product_id.id)
                             , ('partner_id', '=', self.partner_id.id)
                             , ('club_id', '=', self.club_id.id)
-                            , ('is_empty', '=', True)])
-                    if old_empty_record.id:
-                        old_empty_record.write({
-                            'qty': old_empty_record.qty + product.qty
+                            , ('is_empty', '=', False)
+                            , ('qty', '>=', product.qty)])
+                    if old_record.id:
+                        old_record.write({
+                            'qty': old_record.qty - product.qty
                         })
+                        old_empty_record = self.env['clbcl.club.partner.product'].search(
+                            [('product_id', '=', product.product_id.id)
+                                , ('partner_id', '=', self.partner_id.id)
+                                , ('club_id', '=', self.club_id.id)
+                                , ('is_empty', '=', True)])
+                        if old_empty_record.id:
+                            old_empty_record.write({
+                                'qty': old_empty_record.qty + product.qty
+                            })
+                        else:
+                            self.env['clbcl.club.partner.product'].create({
+                                'product_id': product.product_id.id,
+                                'partner_id': self.partner_id.id,
+                                'club_id': self.club_id.id,
+                                'qty': product.qty,
+                                'is_empty': True
+                            })
+                        return super(CLBCLClubBooking, self).write(values)
                     else:
-                        self.env['clbcl.club.partner.product'].create({
-                            'product_id': product.product_id.id,
-                            'partner_id': self.partner_id.id,
-                            'club_id': self.club_id.id,
-                            'qty': product.qty,
-                            'is_empty': True
-                        })
-                    return super(CLBCLClubBooking, self).write(values)
-                else:
-                    return 0
+                        return 'Sản phẩm không có trong kho'
+            else:
+                return super(CLBCLClubBooking, self).write(values)
         else:
             return super(CLBCLClubBooking, self).write(values)

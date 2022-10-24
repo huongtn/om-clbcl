@@ -49,6 +49,7 @@
                 <field name="club_id"/>
                 <field name="partner_id"/>
                 <field name="product_id"/>
+                <field name="is_empty"/>
                 <field name="qty"/>
 
             </tree>
@@ -68,6 +69,7 @@
                             <field name="club_id"/>
                             <field name="partner_id"/>
                             <field name="product_id"/>
+                            <field name="is_empty"/>
                             <field name="qty"/>
                         </group>
                     </group>
