@@ -12,5 +12,5 @@ class CLBCLProductReview(models.Model):
     product_id = fields.Many2one("product.product", string='Product')
     product_tmpl_id = fields.Many2one('product.template', related='product_id.product_tmpl_id', store=True)
     partner_id = fields.Many2one("res.partner", string='Customer')
-    star = fields.Integer(string='Start', tracking=True)
-    comment = fields.Text(string='Variants')
+    star = fields.Integer(string='Star', tracking=True)
+    comment = fields.Text(string='Comment')

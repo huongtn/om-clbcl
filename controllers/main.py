@@ -180,8 +180,7 @@ class CLBCLController(http.Controller):
                                 'partner_id': rec['partner_id'],
                                 'club_id': rec['to_club_id'],
                                 'qty': product[1],
-                                'is_empty': False,
-                                'variants': ""
+                                'is_empty': False
                             })
                 else:
                     return {'status': 400, 'message': 'Số lượng sản phẩm không đủ'}
@@ -363,8 +362,7 @@ class CLBCLController(http.Controller):
                                     'partner_id': send_gift.to_partner_id.id,
                                     'club_id': send_gift.club_id.id,
                                     'qty': product['qty'],
-                                    'is_empty': False,
-                                    'variants': ""
+                                    'is_empty': False
                                 })
                     else:
                         return {'status': 400, 'message': 'Số lượng sản phẩm không đủ'}

@@ -48,8 +48,7 @@ class SaleOrder(models.Model):
                             'partner_id': rec.partner_id.id,
                             'club_id': rec.club_id.id,
                             'qty': order_line.product_uom_qty,
-                            'is_empty': False,
-                            'variants': ""
+                            'is_empty': False
                         })
         return res
 
