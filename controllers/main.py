@@ -310,7 +310,7 @@ class CLBCLController(http.Controller):
                 my_gifts['receiving_gift'].append(gift)
         return {'status': 200, 'my_gifts': my_gifts}
 
-    @http.route('/createSendGift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    @http.route('/create_send_gift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def create_send_gift(self, **rec):
         for club in rec['clubs']:
             send_gift = request.env['clbcl.send.gift'].create({
@@ -328,7 +328,7 @@ class CLBCLController(http.Controller):
                     })
         return {'status': 200, 'message': 'Thêm mới thành công'}
 
-    @http.route('/acceptSendGift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    @http.route('/accept_send_gift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def accept_send_gift(self, **rec):
         for send_gift_id in rec['send_gift_id']:
             send_gifts = request.env['clbcl.send.gift'].search([('id', '=', send_gift_id)])
@@ -373,7 +373,7 @@ class CLBCLController(http.Controller):
 
         return {'status': 200, 'message': 'Cập nhật thành công'}
 
-    @http.route('/getBankInfo', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    @http.route('/get_bank_info', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_bank_info(self, **rec):
         order = request.env['sale.order'].search([('id', '=', rec['order_id'])])
         banks = request.env['clbcl.bank.info'].search_read([])
