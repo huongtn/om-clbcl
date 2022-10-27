@@ -41,7 +41,7 @@ class CLBCLController(http.Controller):
     def sign_up(self, **rec):
         old_user = request.env['res.users'].search([('login','=',rec['phone_number'])])
         if old_user.id:
-            return {'status': 200, 'message': 'đã được đăng ký'}
+            return {'status': 400, 'message': 'SĐT đã được đăng ký'}
         else:
             user = request.env['res.users'].create({
                 'name': rec['phone_number'],
