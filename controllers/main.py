@@ -39,20 +39,23 @@ class CLBCLController(http.Controller):
 
     @http.route('/sign_up', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def sign_up(self, **rec):
-
-        user = request.env['res.users'].create({
-            'name': rec['phone_number'],
-            'login': rec['phone_number'],
-            'password': rec['password'],
-            'active': False
-        })
-        request.env['clbcl.user.otp'].create({
-            'otp': "{}".format(randint(100000, 999999)),
-            'expired_at': datetime.datetime.now() + timedelta(minutes=2),
-            'phone_number': rec['phone_number']
-        })
-        # send otp here
-        return {'status': 200, 'response': user.login, 'message': 'Success'}
+        old_user = request.env['res.users'].search([('login','=',rec['phone_number'])])
+        if old_user.id:
+            return {'status': 200, 'message': 'đã được đăng ký'}
+        else:
+            user = request.env['res.users'].create({
+                'name': rec['phone_number'],
+                'login': rec['phone_number'],
+                'password': rec['password'],
+                'active': False
+            })
+            request.env['clbcl.user.otp'].create({
+                'otp': "{}".format(randint(100000, 999999)),
+                'expired_at': datetime.datetime.now() + timedelta(minutes=2),
+                'phone_number': rec['phone_number']
+            })
+            # send otp here
+            return {'status': 200, 'response': user.login, 'message': 'Success'}
 
     @http.route('/verify_otp', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def verify_otp(self, **rec):
