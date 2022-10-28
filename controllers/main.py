@@ -39,7 +39,7 @@ class CLBCLController(http.Controller):
 
     @http.route('/sign_up', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def sign_up(self, **rec):
-        old_user = request.env['res.users'].search([('login','=',rec['phone_number'])])
+        old_user = request.env['res.users'].search([('login', '=', rec['phone_number'])])
         if old_user.id:
             return {'status': 400, 'message': 'SĐT đã được đăng ký'}
         else:
@@ -72,7 +72,7 @@ class CLBCLController(http.Controller):
                 user.write({
                     'active': True
                 })
-        
+
             return {'status': 200, 'message': 'OTP hợp lệ'}
         else:
             return {'status': 400, 'message': 'OTP không hợp lệ'}
@@ -121,6 +121,34 @@ class CLBCLController(http.Controller):
                     'qty': product[1]
                 })
         return {'status': 200, 'message': 'Thêm mới thành công'}
+
+    @http.route('/edit_booking', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def edit_booking(self, **rec):
+        old_booking = request.env['clbcl.club.booking'].search([('id', '=', rec['id'])])
+        if old_booking.id:
+            old_booking.write({
+                'club_id': rec['club_id'],
+                'partner_id': rec['partner_id'],
+                'date_time': rec['date_time'],
+                'table': rec['table'],
+                'participant_count': rec['participant_count']
+            })
+            request.env['clbcl.club.booking.friend'].search([('booking_id', '=', old_booking.id)]).unlink()
+            for friend in rec['friends']:
+                friendInfo = request.env['clbcl.friend'].search([('id', '=', friend)])
+                request.env['clbcl.club.booking.friend'].create({
+                    'booking_id': old_booking.id,
+                    'friend_id': friend,
+                    'phone': friendInfo.phone
+                })
+            request.env['clbcl.club.booking.product'].search([('booking_id', '=', old_booking.id)]).unlink()
+            for product in rec['products']:
+                request.env['clbcl.club.booking.product'].create({
+                    'booking_id': old_booking.id,
+                    'product_id': product[0],
+                    'qty': product[1]
+                })
+        return {'status': 200, 'message': 'Cập nhật thành công'}
 
     @http.route('/get_bookings', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_bookings(self, **rec):
@@ -267,7 +295,7 @@ class CLBCLController(http.Controller):
             else:
                 products['wines'].append(productDetails)
         return {'status': 200, 'products': products}
-    
+
     @http.route('/get_products_all_clubs', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_products_all_clubs(self, **rec):
         club_products = []
@@ -279,12 +307,12 @@ class CLBCLController(http.Controller):
                                                                             ('qty', '>', 0)
                                                                             ])
             products = {
-                'id':club.id,
-                'club_name':club.club_name,
-                'area':club.area,
-                'address':club.address,
-                'phone':club.phone,
-                'note':club.note,
+                'id': club.id,
+                'club_name': club.club_name,
+                'area': club.area,
+                'address': club.address,
+                'phone': club.phone,
+                'note': club.note,
                 'foods': [],
                 'wines': []
             }
@@ -316,7 +344,7 @@ class CLBCLController(http.Controller):
                     products['foods'].append(productDetails)
                 else:
                     products['wines'].append(productDetails)
-            club_products.append(products)  
+            club_products.append(products)
         return {'status': 200, 'club_products': club_products}
 
     @http.route('/get_my_friends', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
