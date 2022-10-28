@@ -30,7 +30,7 @@ class CLBCLClubBooking(models.Model):
 
     def write(self, values):
         if 'status' in values:
-            if values['status'] == 'Hoàn thành':
+            if values['status'] == 'Đã hoàn tất':
                 print('id', self.id)
                 print('partner_id', self.partner_id.id)
                 print('club_id', self.club_id.id)

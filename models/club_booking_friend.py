@@ -10,4 +10,10 @@ class CLBCLClubBookingFriend(models.Model):
     booking_id = fields.Many2one("clbcl.club.booking", string='Club Booking')
     friend_id = fields.Many2one("clbcl.friend", string='Friend')
     phone = fields.Text(string='Phone Number')
-    status = fields.Text(string='Status')
+    status = fields.Selection([
+        ('Chờ xác nhận', 'Chờ xác nhận'),
+        ('Hoàn tác gửi', 'Hoàn tác gửi'),
+        ('Đã hủy gửi', 'Đã hủy gửi'),
+        ('Đã được chấp nhận', 'Đã được chấp nhận'),
+        ('Từ chối', 'Từ chối'),
+    ], required=True, default='Chờ xác nhận', tracking=True)
