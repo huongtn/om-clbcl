@@ -15,8 +15,9 @@ class CLBCLClubBooking(models.Model):
     status = fields.Selection([
         ('Chờ xác nhận', 'Chờ xác nhận'),
         ('Xác nhận', 'Xác nhận'),
-        ('Hủy', 'Hủy'),
-        ('Hoàn thành', 'Hoàn thành'),
+        ('Đang diễn ra', 'Đang diễn ra'),
+        ('Đã hoàn tất', 'Đã hoàn tất'),
+        ('Đã bị hủy', 'Đã bị hủy'),
     ], required=True, default='Chờ xác nhận', tracking=True)
     product_count = fields.Integer(string='Product', compute='get_product_count')
 
