@@ -81,7 +81,7 @@
     </record>
 
     <record id="action_booking_product" model="ir.actions.act_window">
-        <field name="name">Sản phẩm đặt chỗ</field>
+        <field name="name">Sản phẩm đặt bàn</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">clbcl.club.booking.product</field>
         <field name="view_mode">tree,kanban,form</field>
