@@ -22,8 +22,13 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='state']" position="after">
                 <field name="club_id"/>
-                <field name="clbcl_status"/>
-                <field name="clbcl_payment_status"/>
+                <field name="clbcl_status"
+                       decoration-danger="clbcl_status == 'Đã hủy'"
+                       decoration-info="clbcl_status == 'Đang giao'"
+                       decoration-success="clbcl_status == 'Hoàn thành'"/>
+                <field name="clbcl_payment_status" decoration-danger="clbcl_payment_status == 'Chưa thanh toán'"
+                       decoration-warning="clbcl_payment_status == 'Khách hàng thanh toán'"
+                       decoration-success="clbcl_payment_status == 'Xác nhận thanh toán'"/>
             </xpath>
         </field>
     </record>
