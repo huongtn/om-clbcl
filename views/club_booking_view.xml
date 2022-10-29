@@ -61,7 +61,6 @@
             </kanban>
         </field>
     </record>
-
     <record id="view_clbcl_club_booking_tree" model="ir.ui.view">
         <field name="name">clbcl.club.booking.tree</field>
         <field name="model">clbcl.club.booking</field>
@@ -74,7 +73,9 @@
                 <field name="table"/>
                 <field name="participant_count"/>
                 <field name="product_count"/>
-                <field name="status"/>
+                <field name="status" decoration-danger="status == 'Đã bị hủy'"
+                       decoration-info="status == 'Xác nhận'"
+                       decoration-success="status == 'Đã hoàn tất'"/>
             </tree>
         </field>
     </record>
