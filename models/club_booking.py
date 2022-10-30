@@ -70,3 +70,14 @@ class CLBCLClubBooking(models.Model):
                 return super(CLBCLClubBooking, self).write(values)
         else:
             return super(CLBCLClubBooking, self).write(values)
+
+    def open_booking_products(self):
+        return {
+            'name': _('Products'),
+            'domain': [('booking_id', '=', self.id)],
+            'view_type': 'form',
+            'res_model': 'clbcl.club.booking.product',
+            'view_id': False,
+            'view_mode': 'tree,form',
+            'type': 'ir.actions.act_window',
+        }

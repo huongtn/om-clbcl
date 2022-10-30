@@ -14,7 +14,7 @@
                         <div t-attf-class="oe_kanban_global_click">
                             <div class="oe_kanban_details">
                                 <ul>
-                                      <li>
+                                    <li>
                                         Mã đặt cho:
                                         <field name="booking_id"/>
                                     </li>
@@ -81,7 +81,7 @@
     </record>
 
     <record id="action_booking_product" model="ir.actions.act_window">
-        <field name="name">Sản phẩm đặt bàn</field>
+        <field name="name">Products</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">clbcl.club.booking.product</field>
         <field name="view_mode">tree,kanban,form</field>
@@ -92,9 +92,4 @@
             </p>
         </field>
     </record>
-    <menuitem id="menu_booking_product"
-              name="Danh sách SP"
-              parent="menu_club_booking_root"
-              action="action_booking_product"
-              sequence="15"/>
 </odoo>
