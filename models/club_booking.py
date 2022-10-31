@@ -11,6 +11,10 @@ class CLBCLClubBooking(models.Model):
     partner_id = fields.Many2one("res.partner", string='Customer')
     date_time = fields.Datetime(string='Date time')
     table = fields.Text(string='Table')
+    status = fields.Selection([
+        ('Riêng tư', 'Riêng tư'),
+        ('Tiêu chuẩn', 'Tiêu chuẩn')
+    ], required=True, default='Tiêu chuẩn', tracking=True)
     participant_count = fields.Integer(string='Participant Count')
     status = fields.Selection([
         ('Chờ xác nhận', 'Chờ xác nhận'),
