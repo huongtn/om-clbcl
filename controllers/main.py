@@ -380,16 +380,14 @@ class CLBCLController(http.Controller):
             'receiving_gift': []
         }
         for gift in sending_gifts:
+            my_gifts['sending_gifts'].append(gift)
             if gift['status'] == 'Đã nhận':
                 my_gifts['gifts'].append(gift)
-            else:
-                my_gifts['sending_gifts'].append(gift)
 
         for gift in receiving_gifts:
+            my_gifts['receiving_gift'].append(gift)
             if gift['status'] == 'Đã nhận':
                 my_gifts['gifts'].append(gift)
-            else:
-                my_gifts['receiving_gift'].append(gift)
         return {'status': 200, 'my_gifts': my_gifts}
 
     @http.route('/create_send_gift', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
