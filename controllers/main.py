@@ -400,6 +400,9 @@ class CLBCLController(http.Controller):
                 'first_product_id': club['products'][0][0]
             })
             if send_gift.id:
+                send_gift.write({
+                    'code': 'GI' + str(send_gift.id).zfill(5)
+                })
                 for product in club['products']:
                     request.env['clbcl.send.gift.product'].create({
                         'send_gift_id': send_gift.id,

@@ -10,6 +10,7 @@ class CLBCLCSendGift(models.Model):
     partner_id = fields.Many2one("res.partner", string='Customer')
     to_partner_id = fields.Many2one("res.partner", string='To Customer')
     first_product_id = fields.Integer(string="First Product ID")
+    code = fields.Text(string='Code')
     status = fields.Selection([
         ('Đã nhận', 'Đã nhận'),
         ('Đang gửi', 'Đang gửi'),
