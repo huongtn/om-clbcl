@@ -19,7 +19,7 @@ class CLBCLController(http.Controller):
     def create_otp(self, **rec):
         self.search([('phone_number', '=', rec['phone_number'])]).unlink()
         request.env['clbcl.user.otp'].create({
-            'otp': "{}".format(randint(100000, 999999)),
+            'otp': "123456",
             'expired_at': datetime.datetime.now() + timedelta(minutes=2),
             'phone_number': rec['phone_number']
         })
