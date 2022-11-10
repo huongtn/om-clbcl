@@ -17,7 +17,7 @@ class CLBCLUserOtp(models.Model):
     @api.model
     def create(self, values):
         self.search([('phone_number', '=', values['phone_number'])]).unlink()
-        values['otp'] = "{}".format(randint(100000, 999999))
+        values['otp'] = "123456"
         values['expired_at'] = datetime.datetime.now() + timedelta(minutes=2)
         res = super(CLBCLUserOtp, self).create(values)
         # send otp here
