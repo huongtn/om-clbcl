@@ -17,7 +17,16 @@ class CLBCLController(http.Controller):
 
     @http.route('/create_otp', type='json', auth='public', methods=['POST'])
     def create_otp(self, **rec):
-        self.search([('phone_number', '=', rec['phone_number'])]).unlink()
+        user = request.env['res.users'].search([('login', '=', rec['phone_number'])])
+        if rec['forgot_password']:
+            if user.id:
+                print(1)
+            else:
+                return {'status': 400, 'message': 'SĐT không tồn tại'}
+        else:
+            if user.id:
+                return {'status': 400, 'message': 'SĐT đã đăng ký'}
+        request.env['clbcl.user.otp'].search([('phone_number', '=', rec['phone_number'])]).unlink()
         request.env['clbcl.user.otp'].create({
             'otp': "123456",
             'expired_at': datetime.datetime.now() + timedelta(minutes=2),
