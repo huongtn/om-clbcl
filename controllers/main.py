@@ -288,7 +288,7 @@ class CLBCLController(http.Controller):
 
     @http.route('/get_my_points', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_my_points(self, **rec):
-        partner = request.env['res.partner'].search_read([('partner_id', '=', rec['partner_id'])])
+        partner = request.env['res.partner'].search_read([('id', '=', rec['partner_id'])])
         return {'status': 200,
                 'create_date': partner.create_date,
                 'rank': 'Hạng vàng',
