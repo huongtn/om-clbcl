@@ -290,7 +290,7 @@ class CLBCLController(http.Controller):
     def get_my_points(self, **rec):
         partner = request.env['res.partner'].search_read([('id', '=', rec['partner_id'])])
         return {'status': 200,
-                'create_date': partner.create_date,
+                'create_date': partner[0].create_date,
                 'rank': 'Hạng vàng',
                 'points': request.env['clbcl.point'].search_read([('partner_id', '=', rec['partner_id'])],
                                                                  order='id desc')}
