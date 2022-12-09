@@ -10,3 +10,4 @@ class CLBCLPoint(models.Model):
     order_id = fields.Many2one("sale.order", string='Order')
     description = fields.Text(string='Description')
     point = fields.Integer(string='Point')
+    expired_at = fields.Datetime(string='ExpiredAt')

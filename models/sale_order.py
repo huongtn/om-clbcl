@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-
+import datetime
+from datetime import timedelta
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -28,6 +29,7 @@ class SaleOrder(models.Model):
             'partner_id': res.partner_id.id,
             'order_id': res.id,
             'point': res.amount_total / 100,
+            'expired_at': datetime.datetime.now() + timedelta(days=30),
         })
         if res.club_id:
             for rec in res:
