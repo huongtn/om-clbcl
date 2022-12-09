@@ -91,7 +91,6 @@ class CLBCLController(http.Controller):
         voucher = request.env['clbcl.voucher'].search([
             ('code', '=', rec['code']),
             ('partner_id', '=', rec['partner_id']),
-            ('to_date', '>=', datetime.datetime.now()),
             ('min_amount', '<=', rec['order_amount'])
         ])
         if voucher.id:
@@ -118,6 +117,7 @@ class CLBCLController(http.Controller):
                 'description': 'Đổi ' + str(rec['point']) + ' điểm, ngày ' + str(datetime.datetime.now()),
                 'from_date': datetime.datetime.now(),
                 'count': 1,
+                'point': rec['point'],
                 'type': original_voucher.type,
                 'discount': original_voucher.discount,
                 'min_amount': original_voucher.min_amount,
