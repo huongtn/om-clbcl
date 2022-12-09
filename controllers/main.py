@@ -126,7 +126,7 @@ class CLBCLController(http.Controller):
             })
             if voucher.id:
                 voucher.write({
-                    'code': ' original_voucher.code ' + str(voucher.id).zfill(5)
+                    'code':original_voucher.code + ' ' + str(voucher.id).zfill(5)
                 })
                 request.env['clbcl.point'].create({
                     'description': 'Đổi ' + str(rec['point']) + ' điểm, voucher ' + original_voucher.code,
