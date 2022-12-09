@@ -8,4 +8,5 @@ class CLBCLPoint(models.Model):
     _description = "CLBCL Point"
     partner_id = fields.Many2one("res.partner", string='My')
     order_id = fields.Many2one("sale.order", string='Order')
+    description = fields.Text(string='Description')
     point = fields.Integer(string='Point')

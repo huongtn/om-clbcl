@@ -18,6 +18,7 @@
                 <field name="discount"/>
                 <field name="min_amount"/>
                 <field name="max_discount"/>
+                <field name="partner_id"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_global_click">
@@ -67,6 +68,10 @@
                                         Max Discount:
                                         <field name="max_discount"/>
                                     </li>
+                                    <li>
+                                        Partner:
+                                        <field name="partner_id"/>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -92,7 +97,7 @@
                 <field name="discount"/>
                 <field name="min_amount"/>
                 <field name="max_discount"/>
-
+                <field name="partner_id"/>
             </tree>
         </field>
     </record>
@@ -117,6 +122,7 @@
                             <field name="discount"/>
                             <field name="min_amount"/>
                             <field name="max_discount"/>
+                            <field name="partner_id"/>
                         </group>
                     </group>
                 </sheet>

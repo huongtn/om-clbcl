@@ -21,7 +21,7 @@ class CLBCLClubPartnerProduct(models.Model):
         ('amount', 'Số tiền'),
         ('percentage', '%')
     ], required=True, default='amount', tracking=True)
-
+    partner_id = fields.Many2one("res.partner", string='Own voucher')
     def _compute_remain_count(self):
         for rec in self:
             remain_count = rec.count - self.env['sale.order'].search_count([('voucher_id', '=', rec.id)])

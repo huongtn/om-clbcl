@@ -103,6 +103,30 @@ class CLBCLController(http.Controller):
         else:
             return {'status': 400, 'message': 'Mã khuyễn mãi không hợp lệ'}
 
+    @http.route('/exchange_voucher', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def exchange_voucher(self, **rec):
+        voucher = request.env['clbcl.voucher'].create({
+            'title' : 'Đổi điểm',
+            'code': 'Đổi điểm',
+            'description': 'Đổi ' + str(rec['point']) + ' điểm, ngày ' + str(datetime.datetime.now()),
+            'from_date': datetime.datetime.now(),
+            'count':  1,
+            'type': 'amount',
+            'discount': rec['point'],
+            'min_amount': rec['point'],
+            'partner_id': rec['partner_id']
+        })
+        if voucher.id:
+            voucher.write({
+                'code': 'VP' + str(voucher.id).zfill(5)
+            })
+            point = request.env['clbcl.point'].create({
+                'description':  'Đổi ' + str(rec['point']) + ' điểm, ngày ' + str(datetime.datetime.now()),
+                'point': (-1)*rec['point'],
+                'partner_id': rec['partner_id'],
+            })
+        return {'status': 200, 'message': 'Đổi voucher thành công'}
+
     @http.route('/create_booking', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def create_booking(self, **rec):
         clubBooking = request.env['clbcl.club.booking'].create({
