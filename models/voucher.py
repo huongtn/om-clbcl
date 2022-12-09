@@ -14,6 +14,7 @@ class CLBCLClubPartnerProduct(models.Model):
     code = fields.Text(string='Code')
     discount = fields.Integer(string='Discount')
     count = fields.Integer(string='Count')
+    point = fields.Integer(string='point')
     remain_count = fields.Integer(string='Remain Count', compute='_compute_remain_count')
     min_amount = fields.Integer(string='Min Amount')
     max_discount = fields.Integer(string='Max Discount')
