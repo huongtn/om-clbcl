@@ -4,6 +4,7 @@ from . import club_partner_product
 from . import club_user
 from . import user_otp
 from . import product_category
+from . import product_public_category
 from . import product_template
 from . import product_product
 from . import product_review
