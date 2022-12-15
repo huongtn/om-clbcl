@@ -56,6 +56,7 @@ class CLBCLController(http.Controller):
                 'name': rec['phone_number'],
                 'login': rec['phone_number'],
                 'password': rec['password'],
+                # 'sel_groups_1_9_10': 9,
                 'active': False
             })
             request.env['clbcl.user.otp'].create({
