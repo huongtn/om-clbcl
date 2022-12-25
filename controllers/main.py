@@ -127,7 +127,7 @@ class CLBCLController(http.Controller):
             })
             if voucher.id:
                 voucher.write({
-                    'code':original_voucher.code + ' ' + str(voucher.id).zfill(5)
+                    'code': original_voucher.code + ' ' + str(voucher.id).zfill(5)
                 })
                 request.env['clbcl.point'].create({
                     'description': 'Đổi ' + str(rec['point']) + ' điểm, voucher ' + original_voucher.code,
@@ -137,7 +137,6 @@ class CLBCLController(http.Controller):
             return {'status': 200, 'message': 'Đổi voucher thành công'}
         else:
             return {'status': 400, 'message': 'Mã khuyễn mãi không hợp lệ'}
-
 
     @http.route('/create_booking', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def create_booking(self, **rec):
@@ -512,3 +511,35 @@ class CLBCLController(http.Controller):
 
         return {'status': 200, 'banks': banks, 'order_name': order.name, 'amount_total': order.amount_total,
                 'voucher_discount': order.voucher_discount}
+
+    @http.route('/get_attributes', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def get_attributes(self, **rec):
+        attributes = request.env['product.attribute'].search_read([])
+        all_attributes = []
+        for attribute in attributes:
+            attribute_values = request.env['product.attribute.value'].search_read([('id', 'in', attribute['value_ids'])])
+            all_attribute_values = []
+            for attribute_value in attribute_values:
+                group = ''
+                name = attribute_value['name']
+                index = attribute_value['name'].find("/")
+                if index > 0:
+                    group = attribute_value['name'][0:index]
+                    name = attribute_value['name'][index+1:len(attribute_value['name'])]
+                all_attribute_values.append({
+                    'id': attribute_value['id'],
+                    'name': name,
+                    'group': group
+                })
+            all_attributes.append({
+                'id': attribute['id'],
+                # 'value_ids': attribute['value_ids'],
+                'sequence': attribute['sequence'],
+                # 'attribute_line_ids': attribute['attribute_line_ids'],
+                # 'product_tmpl_ids': attribute['product_tmpl_ids'],
+                'display_type': attribute['display_type'],
+                'display_name': attribute['display_name'],
+                'attribute_values': all_attribute_values
+            })
+
+        return {'status': 200, 'attributes': all_attributes}
