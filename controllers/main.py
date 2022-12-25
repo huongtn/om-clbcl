@@ -543,3 +543,38 @@ class CLBCLController(http.Controller):
             })
 
         return {'status': 200, 'attributes': all_attributes}
+
+    @http.route('/get_product_details', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def get_product_details(self, **rec):
+        product = request.env['product.product'].search_read([('id', '=', rec['product_id'])])
+        attributes = request.env['product.attribute.value'].search_read([('id', 'in', product[0]['product_template_variant_value_ids'])])
+        return {'status': 200, 'product': {
+            "product_variant_count":product[0]['product_variant_count'],
+            "type":product[0]['type'],
+            "is_published":product[0]['is_published'],
+            "id":product[0]['id'],
+            "priority":product[0]['priority'],
+            "name":product[0]['name'],
+            "product_tmpl_id":product[0]['product_tmpl_id'],
+            "product_template_variant_value_ids":product[0]['product_template_variant_value_ids'],
+            "sale_ok":product[0]['sale_ok'],
+            "purchase_ok":product[0]['purchase_ok'],
+            "active":product[0]['active'],
+            "description":product[0]['description'],
+            "public_categ_ids":product[0]['public_categ_ids'],
+            "description":product[0]['description'],
+            "display_name":product[0]['display_name'],
+            "star":product[0]['star'],
+            "review_count":product[0]['review_count'],
+            "light_bold":product[0]['light_bold'],
+            "smooth_tannic":product[0]['smooth_tannic'],
+            "dry_sweet":product[0]['dry_sweet'],
+            "soft_acidic":product[0]['soft_acidic'],
+            "summary1":product[0]['summary1'],
+            "summary2":product[0]['summary2'],
+            "summary3":product[0]['summary3'],
+            "area":product[0]['area'],
+            "style":product[0]['style'],
+            "grape_type":product[0]['grape_type'],
+            "public_categ_ids":product[0]['public_categ_ids'],
+        }, 'attributes': attributes}
