@@ -548,6 +548,12 @@ class CLBCLController(http.Controller):
     def get_product_details(self, **rec):
         product = request.env['product.product'].search_read([('id', '=', rec['product_id'])])
         attributes = request.env['product.template.attribute.value'].search_read([('id', 'in', product[0]['product_template_variant_value_ids'])])
+        all_attributes = []
+        for attribute in attributes:
+            all_attributes.append({
+                'name': attribute['name'],
+                'attribute_line_id' : attribute['attribute_line_id']
+            })
         return {'status': 200, 'product': {
             "product_variant_count":product[0]['product_variant_count'],
             "type":product[0]['type'],
@@ -577,4 +583,4 @@ class CLBCLController(http.Controller):
             "style":product[0]['style'],
             "grape_type":product[0]['grape_type'],
             "public_categ_ids":product[0]['public_categ_ids'],
-        }, 'attributes': attributes}
+        }, 'attributes': all_attributes}
