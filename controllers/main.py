@@ -547,7 +547,7 @@ class CLBCLController(http.Controller):
     @http.route('/get_product_details', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_product_details(self, **rec):
         product = request.env['product.product'].search_read([('id', '=', rec['product_id'])])
-        attributes = request.env['product.attribute.value'].search_read([('id', 'in', product[0]['product_template_variant_value_ids'])])
+        attributes = request.env['product.template.attribute.value'].search_read([('id', 'in', product[0]['product_template_variant_value_ids'])])
         return {'status': 200, 'product': {
             "product_variant_count":product[0]['product_variant_count'],
             "type":product[0]['type'],
