@@ -557,9 +557,9 @@ class CLBCLController(http.Controller):
         for product in products:
             all_attributes = self._parse_product_attributes(product)
             all_products.append({
-                'data': self._parse_product_product(product), 'attributes': all_attributes
+                'product': self._parse_product_product(product), 'attributes': all_attributes
             })
-        return {'status': 200, 'product': all_products}
+        return {'status': 200, 'data': all_products}
     def _parse_product_product(self, product):
         return {
             "product_variant_count":product['product_variant_count'],
