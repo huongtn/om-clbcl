@@ -566,7 +566,7 @@ class CLBCLController(http.Controller):
                 names.append(product_attribute_value['name'])
             all_attributes.append({
                 'name': names,
-                'key': attribute_line['attribute_line_id'][1]
+                'key': attribute_line['attribute_id'][1]
             })
         return {'status': 200, 'product': {
             "product_variant_count":product[0]['product_variant_count'],
@@ -594,4 +594,4 @@ class CLBCLController(http.Controller):
             "summary2":product[0]['summary2'],
             "summary3":product[0]['summary3'],
             "public_categ_ids":product[0]['public_categ_ids'],
-        }, 'attributes': all_attributes, 'product_template': product_template[0]}
+        }, 'attributes': all_attributes}
