@@ -573,7 +573,7 @@ class CLBCLController(http.Controller):
             })
         return {'status': 200, 'data': all_products}
 
-    @http.route('/get_product_by_public_categ_ids', type='json', auth='public', methods=['POST'], website=True,
+    @http.route('/get_product_by_filter', type='json', auth='public', methods=['POST'], website=True,
                 sitemap=False)
     def get_product_by_filter(self, **rec):
         product_condition = []
