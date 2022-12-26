@@ -596,7 +596,7 @@ class CLBCLController(http.Controller):
                 product_condition.append(['product_template_variant_value_ids', 'in', tmp_product_template_attribute_value_ids])
 
         product_condition.append(['lst_price', '>=', rec['lst_price'][0]])
-        product_condition.append(['lst_price', '<=', rec['lst_price'][1]])
+        product_condition.append(['lst_price', '<=', 1000010.0])
         all_products = []
         # products = request.env['product.product'].search_read([('product_template_variant_value_ids', 'in', [ 33,
         #                 38]),('product_template_variant_value_ids', 'in', [ 23,
