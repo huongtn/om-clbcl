@@ -573,6 +573,37 @@ class CLBCLController(http.Controller):
             })
         return {'status': 200, 'data': all_products}
 
+    @http.route('/get_product_by_public_categ_ids', type='json', auth='public', methods=['POST'], website=True,
+                sitemap=False)
+    def get_product_by_filter(self, **rec):
+        product_condition = []
+        for attribute in rec['attributes']:
+            tmp_id = []
+            for attribute_value in attribute['attribute_values']:
+                tmp_id.append(attribute_value['id'])
+            if attribute['display_name'] != 'Nồng độ cồn' and attribute['display_name'] != 'Niên vụ':
+                tmp_product_template_ids = []
+                tmp_product_attribute_values = request.env['product.template.attribute.value'].search_read(
+                    [('product_attribute_value_id', 'in', tmp_id)])
+                for tmp_product_attribute_value in tmp_product_attribute_values:
+                    tmp_product_template_ids.append(tmp_product_attribute_value['product_tmpl_id'])
+                product_condition.append(('product_tmpl_id', 'in', tmp_product_template_ids))
+            else:
+                tmp_product_template_attribute_value_ids = []
+                tmp_product_attribute_values =  request.env['product.template.attribute.value'].search_read([('product_attribute_value_id', 'in', tmp_id)])
+                for tmp_product_attribute_value in tmp_product_attribute_values:
+                    tmp_product_template_attribute_value_ids.append(tmp_product_attribute_value['id'])
+                product_condition.append(('product_template_variant_value_ids', 'in', tmp_product_template_attribute_value_ids))
+
+        all_products = []
+        products = request.env['product.product'].search_read(product_condition)
+        for product in products:
+            all_attributes = self._parse_product_attributes(product)
+            all_products.append({
+                'product': self._parse_product_product(product), 'attributes': all_attributes
+            })
+        return {'status': 200, 'data': all_products}
+
     def _parse_product_product(self, product):
         return {
             "product_template_variant_value_ids":product['product_template_variant_value_ids'],
