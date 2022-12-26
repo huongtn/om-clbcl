@@ -566,7 +566,7 @@ class CLBCLController(http.Controller):
                 for product_attribute_value in product_attribute_values:
                     names.append(product_attribute_value['name'])
                 all_attributes.append({
-                    'name': names,
+                    'name': ','.join(names),
                     'key': attribute_line['attribute_id'][1]
                 })
         return {'status': 200, 'product': {
