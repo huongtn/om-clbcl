@@ -546,9 +546,7 @@ class CLBCLController(http.Controller):
 
     @http.route('/get_product_details', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_product_details(self, **rec):
-        product = request.env['product.product'].search_read([('id', '=', rec['product_id'])])
-        product_template = request.env['product.template'].search_read([('id', '=', product[0]['product_tmpl_id'][0])])
-
+        product = request.env['product.product'].search_read([('id', '=', rec['product_id'])]) 
         attributes = request.env['product.template.attribute.value'].search_read([('id', 'in', product[0]['product_template_variant_value_ids'])])
         all_attributes = []
         for attribute in attributes:
@@ -571,6 +569,37 @@ class CLBCLController(http.Controller):
                 })
         return {'status': 200, 'product': self._parse_product_product(product[0]), 'attributes': all_attributes}
 
+    @http.route('/get_product_by_public_categ_ids', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def get_product_by_public_categ_ids(self, **rec):
+        all_products = []
+        products = request.env['product.product'].search_read([('public_categ_ids', 'in', rec['public_categ_ids'])])
+        for product in products:
+            attributes = request.env['product.template.attribute.value'].search_read(
+                [('id', 'in', product[0]['product_template_variant_value_ids'])])
+            all_attributes = []
+            for attribute in attributes:
+                all_attributes.append({
+                    'name': attribute['name'],
+                    'key': attribute['attribute_line_id'][1]
+                })
+            attributes_lines = request.env['product.template.attribute.line'].search_read(
+                [('id', 'in', product[0]['attribute_line_ids'])])
+
+            for attribute_line in attributes_lines:
+                if attribute_line['attribute_id'][1] != 'Nồng độ cồn':
+                    names = []
+                    product_attribute_values = request.env['product.attribute.value'].search_read(
+                        [('id', 'in', attribute_line['value_ids'])])
+                    for product_attribute_value in product_attribute_values:
+                        names.append(product_attribute_value['name'])
+                    all_attributes.append({
+                        'name': ','.join(names),
+                        'key': attribute_line['attribute_id'][1]
+                    })
+            all_products.append({
+                'product': self._parse_product_product(product), 'attributes': all_attributes
+            })
+        return {'status': 200, 'product': all_products}
     def _parse_product_product(self, product):
         return {
             "product_variant_count":product['product_variant_count'],
