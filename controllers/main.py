@@ -616,7 +616,7 @@ class CLBCLController(http.Controller):
             [('id', 'in', product['attribute_line_ids'])])
 
         for attribute_line in attributes_lines:
-            if attribute_line['attribute_id'][1] != 'Nồng độ cồn':
+            if attribute_line['attribute_id'][1] != 'Nồng độ cồn' and attribute_line['attribute_id'][1] != 'Niên vụ':
                 names = []
                 product_attribute_values = request.env['product.attribute.value'].search_read(
                     [('id', 'in', attribute_line['value_ids'])])
