@@ -560,6 +560,19 @@ class CLBCLController(http.Controller):
                 'product': self._parse_product_product(product), 'attributes': all_attributes
             })
         return {'status': 200, 'data': all_products}
+
+    @http.route('/get_product_by_product_ids', type='json', auth='public', methods=['POST'], website=True,
+                sitemap=False)
+    def get_product_by_product_ids(self, **rec):
+        all_products = []
+        products = request.env['product.product'].search_read([('id', 'in', rec['product_ids'])])
+        for product in products:
+            all_attributes = self._parse_product_attributes(product)
+            all_products.append({
+                'product': self._parse_product_product(product), 'attributes': all_attributes
+            })
+        return {'status': 200, 'data': all_products}
+
     def _parse_product_product(self, product):
         return {
             "product_variant_count":product['product_variant_count'],
