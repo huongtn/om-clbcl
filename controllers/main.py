@@ -556,14 +556,18 @@ class CLBCLController(http.Controller):
                 'name': attribute['name'],
                 'key': attribute['attribute_line_id'][1]
             })
-        attributes = request.env['product.template.attribute.value'].search_read(
+        attributes_lines = request.env['product.template.attribute.line'].search_read(
             [('id', 'in', product_template[0]['valid_product_template_attribute_line_ids'])])
 
-        for attribute in attributes:
-            all_attributes.append({
-                'name': attribute['name'],
-                'key': attribute['attribute_line_id'][1]
-            })
+        for attributes_line in attributes_lines:
+            if attributes_line['value_count'] == 1:
+                tmp_attributes = request.env['product.template.attribute.value'].search_read(
+                    [('id', '=', attributes_line['value_ids'][0])])
+
+                all_attributes.append({
+                    'name': attributes_line['attributes_line'][1],
+                    'key': tmp_attributes[0]['name']
+                })
         return {'status': 200, 'product': {
             "product_variant_count":product[0]['product_variant_count'],
             "type":product[0]['type'],
