@@ -596,7 +596,8 @@ class CLBCLController(http.Controller):
                 product_condition.append(['product_template_variant_value_ids', 'in', tmp_product_template_attribute_value_ids])
 
         all_products = []
-        products = request.env['product.product'].search_read(product_condition)
+        products = request.env['product.product'].search_read([('product_template_variant_value_ids', 'in', [ 33,
+                        38]),('product_tmpl_id', 'in', [34])])
         for product in products:
             all_attributes = self._parse_product_attributes(product)
             all_products.append({
