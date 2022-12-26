@@ -546,7 +546,7 @@ class CLBCLController(http.Controller):
 
     @http.route('/get_product_details', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_product_details(self, **rec):
-        product = request.env['product.product'].search_read([('id', '=', rec['product_id'])]) 
+        product = request.env['product.product'].search_read([('id', '=', rec['product_id'])])
         attributes = request.env['product.template.attribute.value'].search_read([('id', 'in', product[0]['product_template_variant_value_ids'])])
         all_attributes = []
         for attribute in attributes:
@@ -575,7 +575,7 @@ class CLBCLController(http.Controller):
         products = request.env['product.product'].search_read([('public_categ_ids', 'in', rec['public_categ_ids'])])
         for product in products:
             attributes = request.env['product.template.attribute.value'].search_read(
-                [('id', 'in', product[0]['product_template_variant_value_ids'])])
+                [('id', 'in', product['product_template_variant_value_ids'])])
             all_attributes = []
             for attribute in attributes:
                 all_attributes.append({
@@ -583,7 +583,7 @@ class CLBCLController(http.Controller):
                     'key': attribute['attribute_line_id'][1]
                 })
             attributes_lines = request.env['product.template.attribute.line'].search_read(
-                [('id', 'in', product[0]['attribute_line_ids'])])
+                [('id', 'in', product['attribute_line_ids'])])
 
             for attribute_line in attributes_lines:
                 if attribute_line['attribute_id'][1] != 'Nồng độ cồn':
