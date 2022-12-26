@@ -575,6 +575,8 @@ class CLBCLController(http.Controller):
 
     def _parse_product_product(self, product):
         return {
+            "product_template_variant_value_ids":product['product_template_variant_value_ids'],
+            "attribute_line_ids": product['attribute_line_ids'],
             "product_variant_count":product['product_variant_count'],
             "type":product['type'],
             "lst_price":product['lst_price'],
