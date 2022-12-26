@@ -577,6 +577,7 @@ class CLBCLController(http.Controller):
         return {
             "product_variant_count":product['product_variant_count'],
             "type":product['type'],
+            "lst_price":product['lst_price'],
             "is_published":product['is_published'],
             "id":product['id'],
             "priority":product['priority'],
