@@ -657,12 +657,16 @@ class CLBCLController(http.Controller):
         for attribute_line in attributes_lines:
             if attribute_line['attribute_id'][1] != 'Nồng độ cồn' and attribute_line['attribute_id'][1] != 'Niên vụ':
                 names = []
+                images = []
                 product_attribute_values = request.env['product.attribute.value'].search_read(
                     [('id', 'in', attribute_line['value_ids'])])
                 for product_attribute_value in product_attribute_values:
                     names.append(product_attribute_value['name'])
+                    if attribute_line['attribute_id'][1] == 'Món ăn kèm':
+                        images.append(product_attribute_value['image'])
                 all_attributes.append({
                     'name': ','.join(names),
-                    'key': attribute_line['attribute_id'][1]
+                    'key': attribute_line['attribute_id'][1],
+                    'images': images
                 })
         return all_attributes
