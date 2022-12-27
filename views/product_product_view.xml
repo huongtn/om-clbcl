@@ -11,8 +11,6 @@
                     <field name="smooth_tannic"/>
                     <field name="dry_sweet"/>
                     <field name="soft_acidic"/>
-                    <field name="top_search"/>
-                    <field name="top_food"/>
                 </group>
                 <group>
                     <field name="summary1"/>
