@@ -611,7 +611,19 @@ class CLBCLController(http.Controller):
         return {'status': 200, 'data': all_products}
 
     def _parse_product_product(self, product):
-        summary = [product['summary1'], product['summary2'], product['summary3']]
+        summary = []
+        if product['summary1']:
+            summary.append(product['summary1'])
+        else:
+            summary.append('')
+        if product['summary2']:
+            summary.append(product['summary2'])
+        else:
+            summary.append('')
+        if product['summary3']:
+            summary.append(product['summary3'])
+        else:
+            summary.append('')
         return {
             "product_template_variant_value_ids":product['product_template_variant_value_ids'],
             "attribute_line_ids": product['attribute_line_ids'],
