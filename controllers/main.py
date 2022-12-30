@@ -621,11 +621,7 @@ class CLBCLController(http.Controller):
             'empty_foods': []
         }
 
-        stock_condition = [["partner_id", "=", rec['partner_id']]]
-        if hasattr(rec, 'club_id'):
-            stock_condition.append(["club_id", "=", rec['club_id']])
-
-        club_customer_products = request.env['clbcl.club.partner.product'].search_read(stock_condition)
+        club_customer_products = request.env['clbcl.club.partner.product'].search_read(rec['domain'])
         for club_customer_product in club_customer_products:
             if club_customer_product['qty'] > 0 and club_customer_product['product_id']:
                 products = request.env['product.product'].search_read([["id", "=", club_customer_product['product_id'][0]]])
