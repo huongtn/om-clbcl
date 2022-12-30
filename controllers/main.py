@@ -622,7 +622,7 @@ class CLBCLController(http.Controller):
         }
 
         stock_condition = [["partner_id", "=", rec['partner_id']]]
-        if hasattr(rec, 'club_id') and rec['club_id']:
+        if hasattr(rec, 'club_id'):
             stock_condition.append(["club_id", "=", rec['club_id']])
 
         club_customer_products = request.env['clbcl.club.partner.product'].search_read(stock_condition)
