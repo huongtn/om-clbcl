@@ -517,7 +517,8 @@ class CLBCLController(http.Controller):
         attributes = request.env['product.attribute'].search_read([])
         all_attributes = []
         for attribute in attributes:
-            attribute_values = request.env['product.attribute.value'].search_read([('id', 'in', attribute['value_ids'])])
+            attribute_values = request.env['product.attribute.value'].search_read(
+                [('id', 'in', attribute['value_ids'])])
             all_attribute_values = []
             for attribute_value in attribute_values:
                 group = ''
@@ -525,7 +526,7 @@ class CLBCLController(http.Controller):
                 index = attribute_value['name'].find("/")
                 if index > 0:
                     group = attribute_value['name'][0:index]
-                    name = attribute_value['name'][index+1:len(attribute_value['name'])]
+                    name = attribute_value['name'][index + 1:len(attribute_value['name'])]
                 all_attribute_values.append({
                     'id': attribute_value['id'],
                     'name': name,
@@ -551,7 +552,8 @@ class CLBCLController(http.Controller):
         all_attributes = self._parse_product_attributes(product[0])
         return {'status': 200, 'product': self._parse_product_product(product[0]), 'attributes': all_attributes}
 
-    @http.route('/get_product_by_public_categ_ids', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    @http.route('/get_product_by_public_categ_ids', type='json', auth='public', methods=['POST'], website=True,
+                sitemap=False)
     def get_product_by_public_categ_ids(self, **rec):
         all_products = []
         products = request.env['product.product'].search_read([('public_categ_ids', 'in', rec['public_categ_ids'])])
@@ -591,17 +593,16 @@ class CLBCLController(http.Controller):
                 product_condition.append(['product_tmpl_id', 'in', tmp_product_template_ids])
             else:
                 tmp_product_template_attribute_value_ids = []
-                tmp_product_attribute_values =  request.env['product.template.attribute.value'].search_read([('product_attribute_value_id', 'in', tmp_id)])
+                tmp_product_attribute_values = request.env['product.template.attribute.value'].search_read(
+                    [('product_attribute_value_id', 'in', tmp_id)])
                 for tmp_product_attribute_value in tmp_product_attribute_values:
                     tmp_product_template_attribute_value_ids.append(tmp_product_attribute_value['id'])
-                product_condition.append(['product_template_variant_value_ids', 'in', tmp_product_template_attribute_value_ids])
+                product_condition.append(
+                    ['product_template_variant_value_ids', 'in', tmp_product_template_attribute_value_ids])
 
         product_condition.append(['lst_price', '>=', rec['lst_price'][0]])
         product_condition.append(['lst_price', '<=', rec['lst_price'][1]])
         all_products = []
-        # products = request.env['product.product'].search_read([('product_template_variant_value_ids', 'in', [ 33,
-        #                 38]),('product_template_variant_value_ids', 'in', [ 23,
-        #                 30]),('product_tmpl_id', 'in', [34]),('product_tmpl_id', 'in', [31])])
         products = request.env['product.product'].search_read(product_condition)
         for product in products:
             all_attributes = self._parse_product_attributes(product)
@@ -609,6 +610,48 @@ class CLBCLController(http.Controller):
                 'product': self._parse_product_product(product), 'attributes': all_attributes
             })
         return {'status': 200, 'data': all_products}
+
+    @http.route('/get_stock_products', type='json', auth='public', methods=['POST'], website=True,
+                sitemap=False)
+    def get_stock_products(self, **rec):
+        data = {
+            'wines': [],
+            'empty_wines': [],
+            'foods': [],
+            'empty_foods': []
+        }
+
+        stock_condition = ["partner_id", "=", rec['partner_id']]
+        if rec['club_id']:
+            stock_condition.append(["club_id", "=", rec['club_id']])
+
+        club_customer_products = request.env['clbcl.club.partner.product'].search_read(stock_condition)
+        for club_customer_product in club_customer_products:
+            if club_customer_product['qty'] > 0 and club_customer_product['product_id']:
+                products = request.env['product.product'].search_read(
+                    ["id", "=", club_customer_product['product_id'][0]])
+                all_attributes = self._parse_product_attributes(products[0])
+                product_info = {
+                    'id': club_customer_product['id'],
+                    'product_id': club_customer_product['product_id'],
+                    'product_tmpl_id': club_customer_product['product_tmpl_id'],
+                    'is_empty': club_customer_product['is_empty'],
+                    'category': club_customer_product['category'],
+                    'club_id': club_customer_product['club_id'],
+                    'qty': club_customer_product['qty'],
+                    'attributes': all_attributes
+                }
+                if club_customer_product['is_empty']:
+                    if club_customer_product['category'] == 'Rượu':
+                        data.wines.append(product_info)
+                    else:
+                        data.foods.append(product_info)
+                else:
+                    if club_customer_product['category'] == 'Rượu':
+                        data.empty_wines.append(product_info)
+                    else:
+                        data.empty_foods.append(product_info)
+        return {'status': 200, 'data': data}
 
     def _parse_product_product(self, product):
         summary = []
@@ -625,39 +668,39 @@ class CLBCLController(http.Controller):
         else:
             summary.append('')
         return {
-            "product_template_variant_value_ids":product['product_template_variant_value_ids'],
+            "product_template_variant_value_ids": product['product_template_variant_value_ids'],
             "attribute_line_ids": product['attribute_line_ids'],
-            "product_variant_count":product['product_variant_count'],
-            "type":product['type'],
-            "lst_price":product['lst_price'],
-            "is_published":product['is_published'],
-            "id":product['id'],
-            "priority":product['priority'],
-            "name":product['name'],
-            "product_tmpl_id":product['product_tmpl_id'],
-            "product_template_variant_value_ids":product['product_template_variant_value_ids'],
-            "sale_ok":product['sale_ok'],
-            "purchase_ok":product['purchase_ok'],
-            "active":product['active'],
-            "description":product['description'],
-            "public_categ_ids":product['public_categ_ids'],
-            "description":product['description'],
-            "display_name":product['display_name'],
-            "star":product['star'],
-            "review_count":product['review_count'],
-            "light_bold":product['light_bold'],
-            "smooth_tannic":product['smooth_tannic'],
-            "dry_sweet":product['dry_sweet'],
-            "soft_acidic":product['soft_acidic'],
-            "summary":summary,
-            "public_categ_ids":product['public_categ_ids'],
+            "product_variant_count": product['product_variant_count'],
+            "type": product['type'],
+            "lst_price": product['lst_price'],
+            "is_published": product['is_published'],
+            "id": product['id'],
+            "priority": product['priority'],
+            "name": product['name'],
+            "product_tmpl_id": product['product_tmpl_id'],
+            "product_template_variant_value_ids": product['product_template_variant_value_ids'],
+            "sale_ok": product['sale_ok'],
+            "purchase_ok": product['purchase_ok'],
+            "active": product['active'],
+            "description": product['description'],
+            "public_categ_ids": product['public_categ_ids'],
+            "description": product['description'],
+            "display_name": product['display_name'],
+            "star": product['star'],
+            "review_count": product['review_count'],
+            "light_bold": product['light_bold'],
+            "smooth_tannic": product['smooth_tannic'],
+            "dry_sweet": product['dry_sweet'],
+            "soft_acidic": product['soft_acidic'],
+            "summary": summary,
+            "public_categ_ids": product['public_categ_ids'],
         }
 
     def _parse_product_attributes(self, product):
         attributes = request.env['product.template.attribute.value'].search_read(
             [('id', 'in', product['product_template_variant_value_ids'])])
         all_attributes = []
-        foods =[]
+        foods = []
         for attribute in attributes:
             all_attributes.append({
                 'name': attribute['name'],
@@ -673,7 +716,8 @@ class CLBCLController(http.Controller):
                     [('id', 'in', attribute_line['value_ids'])])
                 for product_attribute_value in product_attribute_values:
                     if attribute_line['attribute_id'][1] == 'Món ăn kèm':
-                        foods.append({'image':product_attribute_value['image'],'name':product_attribute_value['name']})
+                        foods.append(
+                            {'image': product_attribute_value['image'], 'name': product_attribute_value['name']})
                     else:
                         names.append(product_attribute_value['name'])
 
@@ -683,6 +727,6 @@ class CLBCLController(http.Controller):
                         'key': attribute_line['attribute_id'][1]
                     })
         return {
-                'foods': foods,
-                'other': all_attributes
-            }
+            'foods': foods,
+            'other': all_attributes
+        }
