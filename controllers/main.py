@@ -628,8 +628,7 @@ class CLBCLController(http.Controller):
         club_customer_products = request.env['clbcl.club.partner.product'].search_read(stock_condition)
         for club_customer_product in club_customer_products:
             if club_customer_product['qty'] > 0 and club_customer_product['product_id']:
-                products = request.env['product.product'].search_read(
-                    ["id", "=", club_customer_product['product_id']])
+                products = request.env['product.product'].search_read([["id", "=", club_customer_product['product_id'][0]]])
                 all_attributes = self._parse_product_attributes(products[0])
                 product_info = {
                     'id': club_customer_product['id'],
