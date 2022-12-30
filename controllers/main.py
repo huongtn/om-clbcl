@@ -621,7 +621,7 @@ class CLBCLController(http.Controller):
             'empty_foods': []
         }
 
-        stock_condition = ["partner_id", "=", rec['partner_id']]
+        stock_condition = [["partner_id", "=", rec['partner_id']]]
         if rec['club_id']:
             stock_condition.append(["club_id", "=", rec['club_id']])
 
