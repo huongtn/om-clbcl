@@ -626,6 +626,7 @@ class CLBCLController(http.Controller):
             if club_customer_product['qty'] > 0 and club_customer_product['product_id']:
                 products = request.env['product.product'].search_read([["id", "=", club_customer_product['product_id'][0]]])
                 all_attributes = self._parse_product_attributes(products[0])
+                product = self._parse_product_product(products[0])
                 product_info = {
                     'id': club_customer_product['id'],
                     'product_id': club_customer_product['product_id'],
@@ -634,7 +635,8 @@ class CLBCLController(http.Controller):
                     'category': club_customer_product['category'],
                     'club_id': club_customer_product['club_id'],
                     'qty': club_customer_product['qty'],
-                    'attributes': all_attributes
+                    'attributes': all_attributes,
+                    'product_details': product
                 }
                 if club_customer_product['is_empty']:
                     if club_customer_product['category'] == 'Rượu':
