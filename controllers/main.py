@@ -638,14 +638,14 @@ class CLBCLController(http.Controller):
                 }
                 if club_customer_product['is_empty']:
                     if club_customer_product['category'] == 'Rượu':
-                        data['wines'].append(product_info)
-                    else:
-                        data['foods'].append(product_info)
-                else:
-                    if club_customer_product['category'] == 'Rượu':
                         data['empty_wines'].append(product_info)
                     else:
                         data['empty_foods'].append(product_info)
+                else:
+                    if club_customer_product['category'] == 'Rượu':
+                        data['wines'].append(product_info)
+                    else:
+                        data['foods'].append(product_info)
         return {'status': 200, 'data': data}
 
     def _parse_product_product(self, product):
