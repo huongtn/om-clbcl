@@ -680,7 +680,7 @@ class CLBCLController(http.Controller):
             "description": product['description'],
             "public_categ_ids": product['public_categ_ids'],
             "description": product['description'],
-            "category_id": product['category_id'],
+            "categ_id": product['categ_id'],
             "display_name": product['display_name'],
             "star": product['star'],
             "review_count": product['review_count'],
