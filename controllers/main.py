@@ -624,7 +624,8 @@ class CLBCLController(http.Controller):
         club_customer_products = request.env['clbcl.club.partner.product'].search_read(rec['domain'])
         for club_customer_product in club_customer_products:
             if club_customer_product['qty'] > 0 and club_customer_product['product_id']:
-                products = request.env['product.product'].search_read([["id", "=", club_customer_product['product_id'][0]]])
+                products = request.env['product.product'].search_read(
+                    [["id", "=", club_customer_product['product_id'][0]]])
                 all_attributes = self._parse_product_attributes(products[0])
                 product = self._parse_product_product(products[0])
                 product_info = {
@@ -698,8 +699,14 @@ class CLBCLController(http.Controller):
         attributes = request.env['product.template.attribute.value'].search_read(
             [('id', 'in', product['product_template_variant_value_ids'])])
         all_attributes = []
+        hasNongDoCon = False
+        hasNienVu = False
         foods = []
         for attribute in attributes:
+            if attribute['name'] == 'Nồng độ cồn':
+                hasNongDoCon = True
+            if attribute['name'] == 'Niên vụ':
+                hasNienVu = True
             all_attributes.append({
                 'name': attribute['name'],
                 'key': attribute['attribute_line_id'][1]
@@ -708,7 +715,8 @@ class CLBCLController(http.Controller):
             [('id', 'in', product['attribute_line_ids'])])
 
         for attribute_line in attributes_lines:
-            if attribute_line['attribute_id'][1] != 'Nồng độ cồn' and attribute_line['attribute_id'][1] != 'Niên vụ':
+            if (attribute_line['attribute_id'][1] != 'Nồng độ cồn' or hasNongDoCon == False) and (
+                    attribute_line['attribute_id'][1] != 'Niên vụ' or hasNienVu == False):
                 names = []
                 product_attribute_values = request.env['product.attribute.value'].search_read(
                     [('id', 'in', attribute_line['value_ids'])])
