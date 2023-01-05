@@ -229,7 +229,7 @@ class CLBCLController(http.Controller):
                 }
             )
 
-        return {'status': 200, 'clubs': clubs}
+        return {'status': 200, 'clubs': all_clubs}
 
     @http.route('/get_booking_byid', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_booking_byid(self, **rec):
