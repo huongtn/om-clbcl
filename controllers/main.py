@@ -384,6 +384,22 @@ class CLBCLController(http.Controller):
         club_products = []
         clubs = request.env['clbcl.club'].search([])
         for club in clubs:
+            inside_images = []
+            if club['image_1'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_1')
+            if club['image_2'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_2')
+            if club['image_3'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_3')
+            if club['image_4'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_4')
+            if club['image_5'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_5')
             stocks = request.env['clbcl.club.partner.product'].search_read([('partner_id', '=', rec['partner_id']),
                                                                             ('club_id', '=', club.id),
                                                                             ('is_empty', '=', False),
@@ -391,6 +407,7 @@ class CLBCLController(http.Controller):
                                                                             ])
             products = {
                 'id': club.id,
+                'inside_images': inside_images,
                 'club_name': club.club_name,
                 'area': club.area,
                 'address': club.address,
