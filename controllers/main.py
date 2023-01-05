@@ -212,11 +212,11 @@ class CLBCLController(http.Controller):
         clubs = request.env['clbcl.club'].search_read()
         all_clubs = []
         for club in clubs:
-            inside_images = ['https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_1',
-                             'https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_2',
-                             'https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_3',
-                             'https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_4',
-                             'https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_5']
+            inside_images = ['https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_1',
+                             'https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_2',
+                             'https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_3',
+                             'https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_4',
+                             'https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_5']
             all_clubs.append(
                 {
                     "inside_images": inside_images,
