@@ -212,11 +212,22 @@ class CLBCLController(http.Controller):
         clubs = request.env['clbcl.club'].search_read()
         all_clubs = []
         for club in clubs:
-            inside_images = ['https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_1',
-                             'https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_2',
-                             'https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_3',
-                             'https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_4',
-                             'https://wineclub.club/web/image?model=clbcl.club&id='+str(club['id'])+'&field=image_5']
+            inside_images = []
+            if club['image_1'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_1')
+            if club['image_2'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_2')
+            if club['image_3'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_3')
+            if club['image_4'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_4')
+            if club['image_5'] != False:
+                inside_images.append(
+                    'https://wineclub.club/web/image?model=clbcl.club&id=' + str(club['id']) + '&field=image_5')
             all_clubs.append(
                 {
                     "inside_images": inside_images,
