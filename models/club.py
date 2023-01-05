@@ -13,6 +13,12 @@ class CLBCLClub(models.Model):
     phone = fields.Text(string='Phone')
     note = fields.Text(string='Note')
     image = fields.Binary(string="Club Image")
+    image_1 = fields.Binary(string="Club Image 1")
+    image_2 = fields.Binary(string="Club Image 2")
+    image_3 = fields.Binary(string="Club Image 3")
+    image_4 = fields.Binary(string="Club Image 4")
+    image_5 = fields.Binary(string="Club Image 5")
+
     active = fields.Boolean(string="Active", default=True)
     area = fields.Selection([
         ('hanoi', 'Hà nội'),

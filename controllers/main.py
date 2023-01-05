@@ -207,6 +207,30 @@ class CLBCLController(http.Controller):
 
         return {'status': 200, 'my_bookings': my_bookings, 'friend_bookings': friendBookings}
 
+    @http.route('/get_all_clubs', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
+    def get_all_clubs(self, **rec):
+        clubs = request.env['clbcl.club'].search_read()
+        all_clubs = []
+        for club in clubs:
+            inside_images = ['https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_1',
+                             'https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_2',
+                             'https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_3',
+                             'https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_4',
+                             'https://wineclub.club/web/image?model=clbcl.club&id='+club['id']+'&field=image_5']
+            all_clubs.append(
+                {
+                    "inside_images": inside_images,
+                    "id": club['id'],
+                    "club_name": club['club_name'],
+                    "area": club['area'],
+                    "address": club['address'],
+                    "phone": club['phone'],
+                    "note": club['note']
+                }
+            )
+
+        return {'status': 200, 'clubs': clubs}
+
     @http.route('/get_booking_byid', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_booking_byid(self, **rec):
         booking = request.env['clbcl.club.booking'].search_read([('id', '=', rec['id'])])

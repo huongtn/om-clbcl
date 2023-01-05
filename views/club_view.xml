@@ -47,6 +47,11 @@
                 <field name="phone"/>
                 <field name="note"/>
                 <field name="image" widget="image"/>
+                <field name="image_1" widget="image"/>
+                <field name="image_2" widget="image"/>
+                <field name="image_3" widget="image"/>
+                <field name="image_4" widget="image"/>
+                <field name="image_5" widget="image"/>
             </tree>
         </field>
     </record>
@@ -68,6 +73,11 @@
                             <field name="note"/>
                             <field name="active" invisible="1"/>
                             <field name="image" widget="image"/>
+                            <field name="image_1" widget="image"/>
+                            <field name="image_2" widget="image"/>
+                            <field name="image_3" widget="image"/>
+                            <field name="image_4" widget="image"/>
+                            <field name="image_5" widget="image"/>
                         </group>
                     </group>
                 </sheet>
