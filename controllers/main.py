@@ -351,7 +351,9 @@ class CLBCLController(http.Controller):
         }
         for stock in stocks:
             product = request.env['product.product'].search_read([('id', '=', stock['product_id'][0])])
+            all_attributes = self._parse_product_attributes(product[0])
             productDetails = {
+                'all_attributes': all_attributes,
                 'product': {
                     'id': product[0]['id'],
                     'name': product[0]['name'],
@@ -767,23 +769,25 @@ class CLBCLController(http.Controller):
             [('id', 'in', product['attribute_line_ids'])])
 
         for attribute_line in attributes_lines:
-            if (attribute_line['attribute_id'][1] != 'Nồng độ cồn' or hasNongDoCon == False) and (
-                    attribute_line['attribute_id'][1] != 'Niên vụ' or hasNienVu == False):
-                names = []
-                product_attribute_values = request.env['product.attribute.value'].search_read(
-                    [('id', 'in', attribute_line['value_ids'])])
-                for product_attribute_value in product_attribute_values:
-                    if attribute_line['attribute_id'][1] == 'Món ăn kèm':
-                        foods.append(
-                            {'image': product_attribute_value['image'], 'name': product_attribute_value['name']})
-                    else:
-                        names.append(product_attribute_value['name'])
+            if attribute_line['attribute_id'][1] == 'Nồng độ cồn' and hasNongDoCon == True:
+                continue
+            if attribute_line['attribute_id'][1] == 'Niên vụ' and hasNienVu == True:
+                continue
+            names = []
+            product_attribute_values = request.env['product.attribute.value'].search_read(
+                [('id', 'in', attribute_line['value_ids'])])
+            for product_attribute_value in product_attribute_values:
+                if attribute_line['attribute_id'][1] == 'Món ăn kèm':
+                    foods.append(
+                        {'image': product_attribute_value['image'], 'name': product_attribute_value['name']})
+                else:
+                    names.append(product_attribute_value['name'])
 
-                if len(names) > 0:
-                    all_attributes.append({
-                        'name': ','.join(names),
-                        'key': attribute_line['attribute_id'][1]
-                    })
+            if len(names) > 0:
+                all_attributes.append({
+                    'name': ','.join(names),
+                    'key': attribute_line['attribute_id'][1]
+                })
         return {
             'foods': foods,
             'other': all_attributes
