@@ -568,7 +568,7 @@ class CLBCLController(http.Controller):
 
     @http.route('/get_attributes', type='json', auth='public', methods=['POST'], website=True, sitemap=False)
     def get_attributes(self, **rec):
-        attributes = request.env['product.attribute'].search_read([])
+        attributes = request.env['product.attribute'].search_read([('is_filter', '=', True)])
         all_attributes = []
         for attribute in attributes:
             attribute_values = request.env['product.attribute.value'].search_read(
